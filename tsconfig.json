@@ -1,4 +1,19 @@
 {
+  "compilerOptions": {
+    "types": ["node"],
+      "baseUrl": "./",
+        "paths": {
+          "@redux/*": ["src/redux/*"],
+          "@api/*": ["src/api/*"],
+          "@pages/*": ["src/pages/*"],
+          "@components/*": ["src/components/*"],
+          "@public/*": ["public/*"],
+          "@utils/*": ["src/utils/*"],
+          "@service/*": ["src/service/*"],
+          "@inteface/*": ["src/inferface/*"],
+          "@assets/*": ["src/assets/*"]
+        }
+      },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
