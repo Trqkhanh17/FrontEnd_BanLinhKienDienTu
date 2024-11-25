@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./redux/store/index.ts";
-
+import "react-toastify/dist/ReactToastify.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ToastContainer />

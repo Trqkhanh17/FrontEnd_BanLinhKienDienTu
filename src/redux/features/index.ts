@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
+// khai kiểu dữ liệu
 interface CounterState {
     value: number
 }
 
 // Define the initial state using that type
+// gán giá trị mặc định
 const initialState: CounterState = {
     value: 0,
 }
@@ -13,6 +15,7 @@ const initialState: CounterState = {
 export const counterSlice = createSlice({
     name: 'counter',
     // `createSlice` will infer the state type from the `initialState` argument
+    // 
     initialState,
     reducers: {
         handleMenuBar: (state, actions: PayloadAction<number>) => {
