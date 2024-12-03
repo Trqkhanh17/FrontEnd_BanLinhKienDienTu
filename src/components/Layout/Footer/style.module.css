@@ -1,0 +1,35 @@
+.containerFooter {
+    background-color: #242424;
+    color: rgb(144, 144, 144);
+    padding: 40px 120px;
+
+    .introductFooter {
+        .readMore {
+            color: #cfab68;
+            text-decoration: none;
+        }
+
+        .social {
+            /* display: flex;
+            flex-direction: column;
+            align-items: center; */
+
+            .iconSocial {
+                font-size: 40px;
+                cursor: pointer;
+            }
+
+            .iconSocial:hover {
+                transition: 0.3s all;
+                color: #cfab68;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:500px) {
+
+    .containerFooter {
+        padding: 10px;
+    }
+}

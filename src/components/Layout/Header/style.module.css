@@ -1,0 +1,133 @@
+.containerHeader {
+    box-shadow: 0 0 1px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .boxLogo {
+        width: 33%;
+        align-items: center;
+
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo{
+            border-radius: 50%;
+            width: 60px;
+            margin: 20px;
+        }
+    }
+
+    .boxNavigate {
+        align-items: center;
+        width: 33%;
+
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .routeName {
+            text-decoration: none;
+            font-size: 130%;
+            color: #242424;
+        }
+
+        .routeName:hover {
+            transition: 0.3s all;
+            color: #0a3d62;
+        }
+
+        .active {
+            color: #0a3d62;
+            font-weight: 700;
+        }
+    }
+
+    .boxIcon {
+        align-items: center;
+        width: 33%;
+
+        .itemIcon1 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .itemIcon2 {
+            display: flex;
+            justify-content: flex-start;
+        }
+    }
+
+    .icon {
+        font-size: 30px;
+        color: #242424;
+        cursor: pointer;
+    }
+
+    .icon:hover {
+        transition: 0.3s all;
+        color:#0a3d62;
+        font-weight: 700;
+    }
+
+    .iconBarHeader {
+        font-size: 30px;
+        color: #242424;
+        align-items: center;
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .containerHeader {
+        justify-content: space-between;
+    }
+
+    .boxNavigate {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 60vw;
+        height: 100vh;
+        background: #ffffff;
+        transform: translateX(-100%);
+        opacity: 0;
+        transition: all 0.3s ease-in;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        .navigate {
+            padding: 20px 0 20px 0;
+        }
+    }
+
+    .iconBarHeader {
+        visibility: visible !important;
+        width: 13% !important;
+    }
+
+    .boxLogo {
+        justify-content: center;
+    }
+
+    .boxIcon {
+        width: 13% !important;
+        justify-content: end;
+
+        .icon {
+            font-size: 35px;
+            color: #242424;
+        }
+    }
+
+    .showMenubar {
+        z-index: 1;
+        transition: all 0.3s ease-in;
+        transform: translateX(0);
+        opacity: 8;
+    }
+}
