@@ -10,7 +10,7 @@ export const loginAPI = async (email: string, password: string) => {
 };
 
 export interface Register {
-  acc_email: string;
+  acc_email: string;  
   password: string;
   cus_name: string;
   cus_address: string;
@@ -19,6 +19,7 @@ export interface Register {
 }
 
 export const registerAPI = async (data: Register) => {
-  const res: AxiosResponse = await apiClient.post("/sign-up", data);
+  const res: AxiosResponse = await apiClient.post("/sign-up-customer", data);
   return res;
 };
+  

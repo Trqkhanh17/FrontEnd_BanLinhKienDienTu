@@ -11,6 +11,7 @@ const SignUpForm = () => {
   const [birthday, setBirthday] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
+
   const handleOnSubmit = async () => {
     try {
       if (
@@ -38,12 +39,23 @@ const SignUpForm = () => {
         cus_birthday: birthday,
       };
       const res = await registerAPI(data);
-
-      if (res.data.statusCode === 409) {
+      if (res.data.statusCode === 400) {
+        return toast.error(res.data.message);
+      }
+      if(res.data.statusCode === 404){
+        return toast.error(res.data.message);
+      }
+      if (res.data.statusCode === 405)
+        toast.success(res.data.message);
+      if (res.data.statusCode === 401) {
         return toast.warning(res.data.message);
       }
-
-      toast.success(res.data.message);
+      if(res.data.statusCode === 402){  
+        return toast.warning(res.data.message);
+      }
+      if (res.data.statusCode === 403) {
+        return toast.warning(res.data.message);
+      }
       return navigate("/");
     } catch (error) {
       return toast.error("Register fails" + error);
@@ -52,13 +64,13 @@ const SignUpForm = () => {
 
   return (
     <div className="form-container sign-up-container">
-      <form onSubmit={handleOnSubmit}>
+      <form>
         <h1>Create Account</h1>
         <div className="social-container">
           <a href="#" className="social">
             <i className="fab fa-facebook-f" />
           </a>
-          <a href="#" className="social">
+          <a href="#" className="social"> 
             <i className="fab fa-google-plus-g" />
           </a>
           <a href="#" className="social">
@@ -108,7 +120,7 @@ const SignUpForm = () => {
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Address"
         />
-        <button>Sign Up</button>
+        <button onClick={()=> handleOnSubmit()} type="button">Sign Up</button>
       </form>
     </div>
   );
