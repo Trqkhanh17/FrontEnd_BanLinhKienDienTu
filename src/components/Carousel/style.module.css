@@ -1,0 +1,5 @@
+.image {
+    object-fit: cover;
+    height: 500px; /* Chỉnh độ cao theo yêu cầu */
+  }
+  
