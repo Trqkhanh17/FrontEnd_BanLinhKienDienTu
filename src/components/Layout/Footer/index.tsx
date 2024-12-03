@@ -39,11 +39,8 @@ const Footer = () => {
           <Row>
             <Col className="d-flex gap-2">
               <h5>My Team:</h5>
-              <span>Cao Vi</span>
-              <span>Quoc Hao</span>
-              <span>Huynh Huong</span>
-              <span>My Dieu</span>
-              <span>Uyen Quan</span>
+              <span>Quốc Khánh</span>
+              <span>Đăng Khôi</span>
             </Col>
           </Row>
           <Row className="mt-1">
