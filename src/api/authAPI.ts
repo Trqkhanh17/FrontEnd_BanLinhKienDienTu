@@ -10,7 +10,7 @@ export const loginAPI = async (email: string, password: string) => {
 };
 
 export interface Register {
-  acc_email: string;  
+  acc_email: string;
   password: string;
   cus_name: string;
   cus_address: string;
@@ -22,4 +22,8 @@ export const registerAPI = async (data: Register) => {
   const res: AxiosResponse = await apiClient.post("/sign-up-customer", data);
   return res;
 };
-  
+
+export const getProfileAPI = async () => {
+  const res: AxiosResponse = await apiClient.get("/get-profile");
+  return res;
+};

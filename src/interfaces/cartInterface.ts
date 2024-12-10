@@ -1,4 +1,9 @@
-export interface Product {
+export interface YourCart {
+  email: string;
+  listCart: ProductHasQuantity[];
+}
+
+interface ProductHasQuantity {
   cate_id: number;
   is_delete: number;
   price: number;
@@ -14,4 +19,5 @@ export interface Product {
   name: string;
   cate_name: string;
   gallery: string[];
+  quantity: number;
 }

@@ -12,7 +12,6 @@ const Home = () => {
   const getAllProduct = async () => {
     try {
       const res = await listProductAPI();
-      console.log(res.data);
       setData(res.data.data);
     } catch (error) {
       toast.error(error + "");

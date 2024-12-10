@@ -6,6 +6,7 @@ interface Props {
   title?: string;
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
+  onClick?: () => void;
 }
 const ButtonCustomize: React.FC<Props> = ({
   color,
@@ -13,6 +14,7 @@ const ButtonCustomize: React.FC<Props> = ({
   title,
   type,
   className,
+  onClick,
 }) => {
   return (
     <Button
@@ -20,6 +22,7 @@ const ButtonCustomize: React.FC<Props> = ({
       color={color}
       type={type}
       size={size}
+      onClick={() => onClick && onClick()}
     >
       {title}
     </Button>
