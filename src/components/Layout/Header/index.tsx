@@ -9,6 +9,7 @@ import { FaBars } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { handleMenuBar } from "../../../redux/features/menuBarSlice";
 import Logo from "../../../assets/images/logo.jpg";
+
 const navigateRoute = [
   {
     name: "Home",
@@ -31,6 +32,7 @@ const navigateRoute = [
 const Header = () => {
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.dataCart);
   const statusBar = useAppSelector((state) => state.menuStatus.value);
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,6 +46,8 @@ const Header = () => {
   const handleClick = () => {
     dispatch(handleMenuBar(!statusBar));
   };
+  console.log(cart?.listCart.length);
+
   return (
     <Container fluid className={`${style.containerHeader} `}>
       <Row onClick={() => handleClick()} className={style.iconBarHeader}>
@@ -88,6 +92,9 @@ const Header = () => {
             onClick={() => navigate("/cart")}
             className={style.icon}
           />
+          {cart && cart.listCart.length > 0 ? (
+            <div className={style.quantityCart}>{cart?.listCart.length}</div>
+          ) : null}
         </Col>
       </Row>
     </Container>

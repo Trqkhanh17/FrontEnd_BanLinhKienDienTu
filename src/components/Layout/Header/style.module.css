@@ -49,7 +49,6 @@
     .boxIcon {
         align-items: center;
         width: 33%;
-
         .itemIcon1 {
             display: flex;
             justify-content: flex-end;
@@ -58,6 +57,19 @@
         .itemIcon2 {
             display: flex;
             justify-content: flex-start;
+            margin: 0px;
+            position: relative;
+            
+            .quantityCart{
+                background-color: red;
+                color: #fff;
+                position: absolute;
+                border-radius: 50%;
+                left: 34px;
+                top: 0px;
+                font-size: 10px;
+                padding: 1px 5px;
+            }
         }
     }
 

@@ -8,8 +8,6 @@ interface Props {
   price: number;
 }
 const MyCard: React.FC<Props> = ({ image, name, price }) => {
-  console.log("Check image" + image);
-
   return (
     <Card className="mt-2 mb-2" style={{ width: "18rem" }}>
       <Card.Img className={`fluid ${style.image}`} variant="top" src={image} />

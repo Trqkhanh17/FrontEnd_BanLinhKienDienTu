@@ -1,0 +1,35 @@
+
+.containerCount{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  .boxDes, .boxInc{
+    background-color: gainsboro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    width: 5vw;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .boxDes:hover, .boxInc:hover{
+    font-weight: 700;
+  }
+
+  
+  .boxValue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .inputValue{
+      border: none;
+      text-align: center;
+      width: 5vw;
+      outline: none;
+    }
+  }
+  
+}
