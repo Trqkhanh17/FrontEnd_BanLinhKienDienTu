@@ -46,6 +46,7 @@ const Header = () => {
   const handleClick = () => {
     dispatch(handleMenuBar(!statusBar));
   };
+  console.log(cart?.listCart.length);
 
   return (
     <Container fluid className={`${style.containerHeader} `}>
@@ -91,7 +92,9 @@ const Header = () => {
             onClick={() => navigate("/cart")}
             className={style.icon}
           />
-          <div className={style.quantityCart}>{cart?.listCart.length}</div>
+          {cart && cart.listCart.length > 0 ? (
+            <div className={style.quantityCart}>{cart?.listCart.length}</div>
+          ) : null}
         </Col>
       </Row>
     </Container>

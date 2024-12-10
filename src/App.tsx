@@ -21,10 +21,12 @@ const App = () => {
   const getCart = () => {
     try {
       const dataCartSession: YourCart[] = getSession("yourCart");
+
       if (!dataCartSession) {
         return null;
       }
       const filter = dataCartSession.filter((x) => x.email === email);
+      console.log("Checkkk: ", filter);
 
       dispatch(addCartToStore(filter[0]));
     } catch (error) {
@@ -34,9 +36,11 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchGetProfile());
-    getCart();
   }, [dispatch]);
 
+  useEffect(() => {
+    getCart();
+  }, [email]);
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
