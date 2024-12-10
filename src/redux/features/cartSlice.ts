@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { YourCart } from "../../interfaces/cartInterface";
-
 interface CartState {
   dataCart: YourCart | null;
 }
@@ -14,7 +13,8 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCartToStore: (state, action: PayloadAction<YourCart>) => {
-      state.dataCart = action.payload;
+      const filter = action.payload;
+      state.dataCart = filter;
     },
   },
 });

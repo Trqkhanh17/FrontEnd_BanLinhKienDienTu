@@ -3,16 +3,16 @@ import { getProfileAPI } from "../../api/authAPI";
 
 // Define a type for the slice state
 interface Profile {
-  cus_id?: number;
-  cus_name?: string;
-  cus_address?: string;
-  cus_birthday?: string;
-  cus_avatar?: string | null;
-  cus_phone?: string;
-  cus_email?: string;
-  cus_create?: string;
-  cus_update?: string | null;
-  is_banned?: number;
+  cus_id: number;
+  cus_name: string;
+  cus_address: string;
+  cus_birthday: string;
+  cus_avatar: string | null;
+  cus_phone: string;
+  cus_email: string;
+  cus_create: string;
+  cus_update: string | null;
+  is_banned: number;
 }
 
 interface ProfileState {

@@ -34,40 +34,49 @@ const ProductDetail = () => {
       return navigate("/login");
     }
 
-    const getCartItem: YourCart = getSession("yourCart"); // Lấy dữ liệu giỏ hàng từ session
+    // Lấy danh sách giỏ hàng từ session
+    const getCartItem: YourCart[] = getSession("yourCart") || [];
 
-    if (!getCartItem || getCartItem.email !== user.cus_email) {
-      // Nếu giỏ hàng chưa tồn tại hoặc thuộc email khác, tạo giỏ hàng mới
-      const storeCart = {
+    // Tìm giỏ hàng của người dùng hiện tại dựa trên email
+    const userCart = getCartItem.find((cart) => cart.email === user.cus_email);
+
+    if (!userCart) {
+      // Nếu không có giỏ hàng của user, tạo mới
+      if (!data) {
+        return;
+      }
+      const newCart = {
         email: user.cus_email,
         listCart: [{ ...data, quantity }],
       };
-      setSession("yourCart", storeCart);
-      dispatch(addCartToStore(getCartItem));
+      getCartItem.push(newCart);
+      setSession("yourCart", getCartItem);
+      dispatch(addCartToStore(getCartItem[0]));
+      toast.success("Add to cart successfull");
       return;
     }
 
-    // Nếu giỏ hàng đã tồn tại và thuộc cùng email
-    const existingProductIndex = getCartItem.listCart.findIndex(
+    // Giỏ hàng đã tồn tại, kiểm tra sản phẩm trong giỏ
+    const existingProductIndex = userCart.listCart.findIndex(
       (item) => item.pro_id === data?.pro_id
     );
 
     if (existingProductIndex !== -1) {
-      // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
-      getCartItem.listCart[existingProductIndex].quantity += quantity;
+      // Sản phẩm đã tồn tại trong giỏ, cập nhật số lượng
+      userCart.listCart[existingProductIndex].quantity += quantity;
     } else {
-      // Sản phẩm chưa tồn tại, thêm sản phẩm mới
+      // Sản phẩm chưa tồn tại, thêm mới
       if (data) {
-        getCartItem.listCart.push({ ...data, quantity });
+        userCart.listCart.push({ ...data, quantity });
       }
     }
 
-    // Cập nhật lại giỏ hàng vào session
+    // Cập nhật giỏ hàng vào session
     setSession("yourCart", getCartItem);
-    dispatch(addCartToStore(getCartItem));
-    return;
+    const filter = getCartItem.filter((x) => x.email === user.cus_email);
+    dispatch(addCartToStore(filter[0]));
+    toast.success("Add to cart successfull");
   };
-
   useEffect(() => {
     getProductDetails();
   }, []);
