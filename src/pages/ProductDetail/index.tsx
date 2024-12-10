@@ -8,14 +8,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { Product } from "../../interfaces/productInterfaces";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getSession, setSession } from "../../utils";
 import { YourCart } from "../../interfaces/cartInterface";
+import { addCartToStore } from "../../redux/features/cartSlice";
 
 const ProductDetail = () => {
   const user = useAppSelector((state) => state.profile.dataProfile);
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
   const [data, setData] = useState<Product | null>(null);
   const getProductDetails = async () => {
@@ -41,6 +43,7 @@ const ProductDetail = () => {
         listCart: [{ ...data, quantity }],
       };
       setSession("yourCart", storeCart);
+      dispatch(addCartToStore(getCartItem));
       return;
     }
 
@@ -60,9 +63,10 @@ const ProductDetail = () => {
     }
 
     // Cập nhật lại giỏ hàng vào session
-    return setSession("yourCart", getCartItem);
+    setSession("yourCart", getCartItem);
+    dispatch(addCartToStore(getCartItem));
+    return;
   };
-  console.log(getSession("yourCart"));
 
   useEffect(() => {
     getProductDetails();

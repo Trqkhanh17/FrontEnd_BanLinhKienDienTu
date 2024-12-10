@@ -3,6 +3,7 @@ import counterSlice from "../features";
 import staffSlice from "../features/staffSlice";
 import menuBarSlice from "../features/menuBarSlice";
 import profileSlice from "../features/profileSlice";
+import cartSlice from "../features/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     staff: staffSlice,
     menuStatus: menuBarSlice,
     profile: profileSlice,
+    cart: cartSlice,
   },
 });
 

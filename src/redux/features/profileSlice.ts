@@ -48,7 +48,7 @@ const handleState = (
 };
 
 export const fetchGetProfile = createAsyncThunk(
-  "staff/fetchGetProfile",
+  "profile/fetchGetProfile",
   async (_, thunkAPI) => {
     try {
       const res = await getProfileAPI();
