@@ -1,7 +1,19 @@
 .containerLayout {
     min-width: 320px;
-    min-height: 100vh;
+    height: 100vh; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    .header {
+        flex: 1;
+    }
+
+    .footer {
+        flex: 1;
+    }
+
+    .main{
+        flex: 1;
+    }
 }

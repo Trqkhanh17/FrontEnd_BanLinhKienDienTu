@@ -17,7 +17,6 @@
     flex-direction: column;
     font-family: "Montserrat", sans-serif;
     height: 100vh;
-    margin: -20px 0 50px;
   }
   
   h1 {
@@ -101,7 +100,7 @@
     overflow: hidden;
     width: 1068px;
     max-width: 100%;
-    min-height: 680px;
+    min-height: 90vh;
   }
   
   .form-container {

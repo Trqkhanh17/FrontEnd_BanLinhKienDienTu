@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useCallback, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,13 +12,13 @@ const Loading = lazy(() => import("./components/Loading"));
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Cart = lazy(() => import("./pages/Cart"));
+
 const App = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector((state) => state.profile.dataProfile?.cus_email);
-  // const cart = useAppSelector((state) => state.cart.dataCart);
-  // console.log("log Cart: ", cart);
 
-  const getCart = () => {
+  const getCart = useCallback(() => {
     try {
       const dataCartSession: YourCart[] = getSession("yourCart");
 
@@ -26,13 +26,12 @@ const App = () => {
         return null;
       }
       const filter = dataCartSession.filter((x) => x.email === email);
-      console.log("Checkkk: ", filter);
 
       dispatch(addCartToStore(filter[0]));
     } catch (error) {
       toast.error(error + "");
     }
-  };
+  }, [email, dispatch]);
 
   useEffect(() => {
     dispatch(fetchGetProfile());
@@ -40,7 +39,7 @@ const App = () => {
 
   useEffect(() => {
     getCart();
-  }, [email]);
+  }, [getCart]);
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
@@ -48,6 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product/:proId" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
