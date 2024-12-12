@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     .boxLogo {
         width: 33%;
         align-items: center;
@@ -70,6 +69,11 @@
                 font-size: 10px;
                 padding: 1px 5px;
             }
+
+            .dropdownToggle{
+                outline: none;
+                border: none;
+            }
         }
     }
 
@@ -91,6 +95,8 @@
         align-items: center;
         visibility: hidden;
     }
+
+ 
 }
 
 @media screen and (max-width: 1200px) {

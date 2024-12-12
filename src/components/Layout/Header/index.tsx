@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BsSearchHeart } from "react-icons/bs";
 import { TbShoppingBagHeart } from "react-icons/tb";
@@ -9,6 +9,7 @@ import { FaBars } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { handleMenuBar } from "../../../redux/features/menuBarSlice";
 import Logo from "../../../assets/images/logo.jpg";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 const navigateRoute = [
   {
@@ -35,6 +36,8 @@ const Header = () => {
   const cart = useAppSelector((state) => state.cart.dataCart);
   const statusBar = useAppSelector((state) => state.menuStatus.value);
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.profile.dataProfile);
+
   useEffect(() => {
     navRefs.current.forEach((ref) => {
       if (ref?.classList[1] === "active") {
@@ -46,10 +49,9 @@ const Header = () => {
   const handleClick = () => {
     dispatch(handleMenuBar(!statusBar));
   };
-  console.log(cart?.listCart.length);
 
   return (
-    <Container fluid className={`${style.containerHeader} `}>
+    <Container fluid className={`${style.containerHeader}`}>
       <Row onClick={() => handleClick()} className={style.iconBarHeader}>
         <Col>
           <FaBars />
@@ -95,6 +97,32 @@ const Header = () => {
           {cart && cart.listCart.length > 0 ? (
             <div className={style.quantityCart}>{cart?.listCart.length}</div>
           ) : null}
+        </Col>
+        <Col className={style.itemIcon2}>
+          <Dropdown>
+            <Dropdown.Toggle
+              className={style.dropdownToggle}
+              variant=""
+              id="dropdown-basic"
+            >
+              <IoPersonCircleOutline className={style.icon} />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {!user ? (
+                <Dropdown.Item>Login</Dropdown.Item>
+              ) : (
+                <>
+                  <Dropdown.Item href="#/action-2">
+                    <NavLink to={"/profile"}>Profile</NavLink>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">
+                    <NavLink to={"/login"}>Logout</NavLink>
+                  </Dropdown.Item>
+                </>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
       </Row>
     </Container>

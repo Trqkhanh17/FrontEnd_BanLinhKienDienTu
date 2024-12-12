@@ -17,7 +17,7 @@ function SignInForm() {
         return toast.error(`${res.data.message}`);
       }
 
-      if(res.data.statusCode === 403){
+      if (res.data.statusCode === 403) {
         return toast.error(`${res.data.message}`);
       }
       if (res.data.statusCode === 401) {

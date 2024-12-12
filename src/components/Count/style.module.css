@@ -17,18 +17,18 @@
   .boxDes:hover, .boxInc:hover{
     font-weight: 700;
   }
-
   
   .boxValue{
     display: flex;
     justify-content: center;
     align-items: center;
-
     .inputValue{
       border: none;
       text-align: center;
       width: 5vw;
       outline: none;
+      background: transparent;
+
     }
   }
   
