@@ -1,0 +1,10 @@
+.tabTitle {
+    cursor: pointer;
+}
+
+.buttonPaymentContinue {
+    background-color: #cfab68;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: none;
+}

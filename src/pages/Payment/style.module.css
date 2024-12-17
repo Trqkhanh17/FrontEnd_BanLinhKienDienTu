@@ -1,0 +1,35 @@
+.BoxPayment {
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #ffffff;
+
+    .boxContent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .paymentLeft {
+        min-height: 100vh;
+        background-color: #ffffff;
+        border-right: 1px solid rgb(232, 232, 232);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .paymentRight {
+        min-height: 100vh;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:760px) {
+    .boxContent {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

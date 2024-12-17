@@ -15,12 +15,13 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Cart = lazy(() => import("./pages/Cart"));
+const Payment = lazy(() => import("./pages/Payment"));
 
 const App = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector((state) => state.profile.dataProfile?.cus_email);
-const user = useAppSelector((state) => state.profile.dataProfile);
-console.log(user);
+  const user = useAppSelector((state) => state.profile.dataProfile);
+  console.log(user);
 
   const getCart = useCallback(() => {
     try {
@@ -53,7 +54,8 @@ console.log(user);
           <Route path="/product" element={<Store />} />
           <Route path="/product/:proId" element={<ProductDetail />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/cart" element={<Cart />} />   
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
