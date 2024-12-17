@@ -8,6 +8,8 @@ import { addCartToStore } from "./redux/features/cartSlice";
 import { getSession } from "./utils";
 import { toast } from "react-toastify";
 import { YourCart } from "./interfaces/cartInterface";
+import Store from "./pages/Store";
+import Profile from "./pages/profile";
 const Loading = lazy(() => import("./components/Loading"));
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -17,6 +19,8 @@ const Cart = lazy(() => import("./pages/Cart"));
 const App = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector((state) => state.profile.dataProfile?.cus_email);
+const user = useAppSelector((state) => state.profile.dataProfile);
+console.log(user);
 
   const getCart = useCallback(() => {
     try {
@@ -46,8 +50,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/product" element={<Store />} />
           <Route path="/product/:proId" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />   
         </Routes>
       </Suspense>
     </BrowserRouter>

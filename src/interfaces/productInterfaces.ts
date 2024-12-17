@@ -14,4 +14,5 @@ export interface Product {
   name: string;
   cate_name: string;
   gallery: string[];
+  quantity:number
 }

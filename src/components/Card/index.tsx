@@ -1,13 +1,19 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import style from "./style.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   image: string;
   name: string;
   price: number;
+  proId: number;
 }
-const MyCard: React.FC<Props> = ({ image, name, price }) => {
+const MyCard: React.FC<Props> = ({ image, name, price,proId }) => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate(`/product/${proId}`);
+  };
   return (
     <Card className="mt-2 mb-2" style={{ width: "18rem" }}>
       <Card.Img className={`fluid ${style.image}`} variant="top" src={image} />
@@ -17,7 +23,7 @@ const MyCard: React.FC<Props> = ({ image, name, price }) => {
           <Card.Text>
             <strong style={{ fontSize: 20 }}>{price} vnd</strong>
           </Card.Text>
-          <Button variant="primary">Buy</Button>
+          <Button variant="primary" onClick={()=>handleButtonClick()}>Detail</Button>
         </div>
       </Card.Body>
     </Card>

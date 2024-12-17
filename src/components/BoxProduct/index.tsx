@@ -8,7 +8,7 @@ interface Props {
   title: string;
 }
 
-const BoxProduct: React.FC<Props> = ({ data, title }) => {
+const BoxProduct: React.FC<Props> = ({ data, title}) => {
   return (
     <Container fluid>
       <Row>
@@ -23,6 +23,7 @@ const BoxProduct: React.FC<Props> = ({ data, title }) => {
                 image={item.pro_img}
                 name={item.pro_name}
                 price={item.price}
+                proId={item.pro_id}
               />
             </Col>
           ))}

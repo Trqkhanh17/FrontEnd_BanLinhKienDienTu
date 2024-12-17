@@ -33,7 +33,7 @@ const ProductDetail = () => {
   const getProductDetails = useCallback(async () => {
     try {
       const res = await getProductByIDAPI(params.proId + "");
-
+      
       if (res.data.statusCode === 404) {
         return toast.warning(res.data.message);
       }
@@ -132,7 +132,7 @@ const ProductDetail = () => {
                 </h3>
               </Row>
               <Row className="mt-3">
-                <h4>Số lượng: 200</h4>
+                <h4>Số lượng: {data.quantity}</h4>
               </Row>
               <Row className="mt-3">
                 <h5>Brand: {data?.pro_brand}</h5>

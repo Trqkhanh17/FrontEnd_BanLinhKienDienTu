@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import MyCarousel from "../../components/Carousel";
 import BoxProduct from "../../components/BoxProduct";
 import { toast } from "react-toastify";
-import { listProductAPI } from "../../api/productAPI";
+import { listNewProduct} from "../../api/productAPI";
 import { useEffect, useState } from "react";
 import { Product } from "../../interfaces/productInterfaces";
 // import style from "./style.module.css";
@@ -11,7 +11,7 @@ const Home = () => {
   const [data, setData] = useState<Product[]>([]);
   const getAllProduct = async () => {
     try {
-      const res = await listProductAPI();
+      const res = await listNewProduct();
       setData(res.data.data);
     } catch (error) {
       toast.error(error + "");

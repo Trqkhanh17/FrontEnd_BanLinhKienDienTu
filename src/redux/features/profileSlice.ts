@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getProfileAPI } from "../../api/authAPI";
+import {getProfileAPI} from "../../api/authAPI";
 
 // Define a type for the slice state
 interface Profile {
