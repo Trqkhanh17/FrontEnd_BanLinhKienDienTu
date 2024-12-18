@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
 interface Props {
-  total?: number;
+  total: number;
 }
 
 const BoxTotalCart: React.FC<Props> = ({ total }) => {
@@ -18,7 +18,7 @@ const BoxTotalCart: React.FC<Props> = ({ total }) => {
       <Row className={style.BoxTotalMoney}>
         <Col className="p-0 d-flex justify-content-between align-items-center gap-5">
           <strong>Total money:</strong>
-          <span className={style.totalMoney}>{total} vnd</span>
+          <span className={style.totalMoney}>{total.toFixed(0)} vnd</span>
         </Col>
       </Row>
       <Row>

@@ -50,7 +50,7 @@ const Tabs: React.FC<Props> = ({ render }) => {
         <Col className="text-end">
           {active === 0 ? (
             <Button
-              onClick={() => setActive(1)}
+              onClick={()=>{}}
               className={style.buttonPaymentContinue}
             >
               Payment Continue

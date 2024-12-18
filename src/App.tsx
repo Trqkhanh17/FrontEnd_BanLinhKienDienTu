@@ -8,15 +8,15 @@ import { addCartToStore } from "./redux/features/cartSlice";
 import { getSession } from "./utils";
 import { toast } from "react-toastify";
 import { YourCart } from "./interfaces/cartInterface";
-import Store from "./pages/Store";
-import Profile from "./pages/profile";
 const Loading = lazy(() => import("./components/Loading"));
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Payment = lazy(() => import("./pages/Payment"));
-
+const OrderHistory = lazy(() => import("./pages/Order"));
+const Profile = lazy(() => import("./pages/profile"));
+const Store = lazy(() => import("./pages/Store"));
 const App = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector((state) => state.profile.dataProfile?.cus_email);
@@ -56,6 +56,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/order" element={<OrderHistory/>} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -113,10 +113,13 @@ const Header = () => {
                 <Dropdown.Item>Login</Dropdown.Item>
               ) : (
                 <>
-                  <Dropdown.Item href="#/action-2">
+                  <Dropdown.Item>
                     <NavLink to={"/profile"}>Profile</NavLink>
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
+                  <Dropdown.Item>
+                    <NavLink to={"/order"}>Order History</NavLink>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
                     <NavLink to={"/login"}>Logout</NavLink>
                   </Dropdown.Item>
                 </>

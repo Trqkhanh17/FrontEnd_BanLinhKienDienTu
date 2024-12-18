@@ -1,0 +1,67 @@
+.order-history-container {
+  margin-top: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-history-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.order-box {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.order-history-table th,
+.order-history-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.order-history-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.order-history-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-history-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.order-history-table img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100px; /* Giới hạn chiều rộng tối đa */
+  max-height: 100px; /* Giới hạn chiều cao tối đa */
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  border-radius: 5px; /* Bo tròn các góc của hình ảnh */
+}
+
+.no-orders {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 20px;
+}

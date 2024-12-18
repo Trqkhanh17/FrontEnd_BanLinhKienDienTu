@@ -32,6 +32,7 @@
 
 .profile-form-group {
   margin-bottom: 15px;
+  text-align: center; /* Canh giữa các phần tử trong nhóm */
 }
 
 .profile-form-group label {
@@ -40,12 +41,34 @@
   margin-bottom: 5px;
 }
 
-.profile-form-group input {
+.profile-form-group input[type="text"],
+.profile-form-group input[type="email"],
+.profile-form-group input[type="date"],
+.profile-form-group input[type="file"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.profile-form-group input[type="file"] {
+  display: none;
+}
+
+.profile-form-group .custom-file-upload {
+  display: inline-block;
+  padding: 5px 10px; /* Giảm kích thước nút */
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px; /* Giảm kích thước chữ */
+  transition: background-color 0.3s ease;
+}
+
+.profile-form-group .custom-file-upload:hover {
+  background-color: #0056b3;
 }
 
 .profile-form-group button {
@@ -58,6 +81,7 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  margin-top: 20px; /* Thêm khoảng cách phía trên nút */
 }
 
 .profile-form-group button:hover {

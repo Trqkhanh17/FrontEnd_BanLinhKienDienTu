@@ -66,7 +66,7 @@ const BoxCard: React.FC<Props> = ({
         md={3}
       >
         <Row>
-          <strong>{price * quantity} vnd</strong>
+          <strong>{(price * quantity).toFixed(0)} vnd</strong>
         </Row>
         <Row className="p-2">
           <MyCount

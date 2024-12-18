@@ -6,8 +6,7 @@ import ShippingMethod from "../ShippingMethod";
 
 const BoxDeliveryInformation = () => {
   const render: Tab[] = [
-    { title: "Delivery information", content: <DeliveryInformation /> },
-    { title: "Payment method", content: <ShippingMethod /> },
+    { title: "Delivery information", content: <DeliveryInformation /> }
   ];
   return (
     <Container className={style.BoxDeliveryInformation}>
