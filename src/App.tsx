@@ -8,6 +8,7 @@ import { addCartToStore } from "./redux/features/cartSlice";
 import { getSession } from "./utils";
 import { toast } from "react-toastify";
 import { YourCart } from "./interfaces/cartInterface";
+import Dashboard from "./pages/Dashboard";
 const Loading = lazy(() => import("./components/Loading"));
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/order" element={<OrderHistory/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
         </Routes>
       </Suspense>
     </BrowserRouter>

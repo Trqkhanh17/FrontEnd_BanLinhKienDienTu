@@ -24,6 +24,9 @@ function SignInForm() {
         return toast.error(`${res.data.message}`);
       }
       toast.success("Login successfully");
+      if(res.data.role === 1){
+        return navigate("/dashboard");
+      }
       return navigate("/");
     } catch (error) {
       return toast.error("Login Fails " + error);

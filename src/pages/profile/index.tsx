@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import Layout from "../../components/Layout";
 import { useAppSelector } from "../../hooks";
 import { updateProfileAPI } from "../../api/customerAPI";
-import { listOrderByIdAPI } from "../../api/orderAPI";
 import "./Profile.css"; // Import file CSS
 
 const Profile = () => {

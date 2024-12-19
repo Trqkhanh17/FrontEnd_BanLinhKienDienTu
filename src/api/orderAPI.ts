@@ -11,6 +11,11 @@ export const createOrderDetailAPI = async (data: any) => {
     return res;
 };
 
+export const listOrderAPI = async () => {
+    const res: AxiosResponse = await apiClient.get("/order");
+    return res;
+};
+
 export const listOrderByIdAPI = async (cusId:string) => {
     const res: AxiosResponse = await apiClient.get(`/order/${cusId}`);
     return res;

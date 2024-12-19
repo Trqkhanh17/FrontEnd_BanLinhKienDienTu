@@ -14,16 +14,13 @@ const Footer = () => {
         <Col md={4} className={`${style.intro}`}>
           <Row>
             <Col>
-              <h5>JOYFULL LETTER</h5>
+              <h5>TECH SHOP</h5>
             </Col>
           </Row>
           <Row className={`${style.boxParaghap}`}>
             <Col>
               <p>
-                The letter-writing shop specializes in creating and sending
-                handwritten letters, offering a personal touch for occasions.
-                Each letter is designed to convey heartfelt messages.
-              </p>
+              Tech Shop is a store specializing in high-quality electronic components, catering to engineers, inventors, and technology enthusiasts.              </p>
             </Col>
           </Row>
           <Row className="mb-4">
@@ -38,7 +35,7 @@ const Footer = () => {
         <Col md={8} className={`${style.social}`}>
           <Row>
             <Col className="d-flex gap-2">
-              <h5>My Team:</h5>
+              <h5>Team:</h5>
               <span>Quốc Khánh</span>
               <span>Đăng Khôi</span>
             </Col>
@@ -55,14 +52,14 @@ const Footer = () => {
           <Row className="mt-1">
             <Col className="d-flex gap-2">
               <h5>Phone:</h5>
-              <p>0123456789</p>
+              <p>0394551401</p>
             </Col>
           </Row>
           <Row className="mt-1">
             <Col className="d-flex gap-2 align-items-center">
               <h5>Social:</h5>
-              <FaFacebook className={style.iconSocial} />
-              <AiFillInstagram className={style.iconSocial} />
+              <FaFacebook className={style.iconSocial}/>
+              <AiFillInstagram className={style.iconSocial} />   
               <FaYoutube className={style.iconSocial} />
               <FaTwitterSquare className={style.iconSocial} />
             </Col>
@@ -74,7 +71,7 @@ const Footer = () => {
         <Col>
           <p>
             Copyright <CgCopyright />
-            2024 by Joyfull Letter Team
+            2024 by Quốc Khánh & Đăng Khôi. All rights reserved.
           </p>
         </Col>
       </Row>

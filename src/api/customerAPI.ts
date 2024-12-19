@@ -12,3 +12,7 @@ export interface updateProfile {
   cus_birthday: string,
   cus_phone: string,
 }
+export const listCustomerAPI = async () => {
+  const res: AxiosResponse = await apiClient.get("/customer");
+  return res;
+};

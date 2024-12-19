@@ -73,7 +73,7 @@ const OrderHistory = () => {
             <p>Email: {order.order_email}</p>
             <p>Phone: {order.order_phone}</p>
             <p>Address: {order.order_address}</p>
-            <p>Date: {order.order_create.split("T")[0]}</p>
+            <p>Order Date: {order.order_create.split("T")[0]}</p>
             <p>Status: {checkStatus(order.order_status)}</p>
             <table className="order-history-table">
               <thead>
