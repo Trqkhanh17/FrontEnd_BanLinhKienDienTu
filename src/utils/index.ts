@@ -1,3 +1,5 @@
+import { apiClient } from "../hooks/apiClient";
+
 export const getCookie = (cname: string) => {
   const name = cname + "=";
   const ca = document.cookie.split(";");
@@ -38,4 +40,11 @@ export const getSession = (key: string) => {
 
 export const removeSession = (key: string) => {
   sessionStorage.removeItem(key);
+};
+
+export const uploadFileAPI = async (file: any) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await apiClient.post("/uploadfile",formData)
+  return response
 };

@@ -13,6 +13,14 @@ export interface updateProfile {
   cus_phone: string,
 }
 export const listCustomerAPI = async () => {
-  const res: AxiosResponse = await apiClient.get("/customer");
+  const res: AxiosResponse = await apiClient.get("/customer/list-all");
+  return res;
+};
+export const bannedCustomerAPI = async (data: any) => {
+  const res: AxiosResponse = await apiClient.put("/account/ban-account", data);
+  return res;
+};
+export const unBannedCustomerAPI = async (data: any) => {
+  const res: AxiosResponse = await apiClient.put("/account/unban-account", data);
   return res;
 };

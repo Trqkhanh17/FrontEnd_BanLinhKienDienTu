@@ -29,11 +29,12 @@ const ProductDetail = () => {
       setQuantity(value);
     }
   };
+  console.log("Check data", data);
 
   const getProductDetails = useCallback(async () => {
     try {
       const res = await getProductByIDAPI(params.proId + "");
-      
+
       if (res.data.statusCode === 404) {
         return toast.warning(res.data.message);
       }
@@ -135,13 +136,13 @@ const ProductDetail = () => {
                 <h4>Số lượng: {data.quantity}</h4>
               </Row>
               <Row className="mt-3">
-                <h5>Brand: {data?.pro_brand}</h5>
+                <h5>Hãng: {data?.pro_brand}</h5>
               </Row>
               <Row className="mt-3">
-                <h5>Origin: {data?.pro_origin}</h5>
+                <h5>Xuất xứ: {data?.pro_origin}</h5>
               </Row>
               <Row className="mt-3 mb-3">
-                <h5>Description: {data?.pro_description}</h5>
+                <h5>Mô tả: {data?.pro_description}</h5>
               </Row>
               <Container className={style.containerCount}>
                 <Row className="w-50">
@@ -170,7 +171,7 @@ const ProductDetail = () => {
               <Row className="mt-3 w-50">
                 <ButtonCustomize
                   size="lg"
-                  title="Add to cart"
+                  title="Thêm vào giỏ hàng"
                   onClick={() => handleOnClick()}
                 />
               </Row>

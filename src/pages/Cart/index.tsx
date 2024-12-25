@@ -33,14 +33,14 @@ const Cart = () => {
               }}
             >
               <Col className="">
-                <h5>Information Order</h5>
+                <h5>Thông tin giỏ hàng</h5>
               </Col>
             </Row>
             <Row style={{ margin: "10px 20px" }}>
               <Col className="">
                 <p>
-                  You have <strong>{cart ? cart.length : 0} products</strong> in
-                  your cart
+                  Bạn có <strong>{cart ? cart.length : 0} sản phẩm</strong> trong
+                  giỏ hàng
                 </p>
               </Col>
             </Row>
@@ -59,7 +59,7 @@ const Cart = () => {
               ))}
           </Col>
           <Col md={4} className="mt-3">
-            <BoxTotalCart total={total} />
+            <BoxTotalCart total={total} cart={cart} />
           </Col>
         </Row>
       </Container>

@@ -9,7 +9,7 @@ interface Props {
   price: number;
   proId: number;
 }
-const MyCard: React.FC<Props> = ({ image, name, price,proId }) => {
+const MyCard: React.FC<Props> = ({ image, name, price, proId }) => {
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate(`/product/${proId}`);
@@ -23,7 +23,7 @@ const MyCard: React.FC<Props> = ({ image, name, price,proId }) => {
           <Card.Text>
             <strong style={{ fontSize: 20 }}>{price} vnd</strong>
           </Card.Text>
-          <Button variant="primary" onClick={()=>handleButtonClick()}>Detail</Button>
+          <Button variant="primary" onClick={() => handleButtonClick()}>Chi tiết</Button>
         </div>
       </Card.Body>
     </Card>

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins@family=Monoton:wght@200;300;400;500;600;700;800@display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  overflow: hidden; /* Loại bỏ thanh cuộn của trình duyệt */
+}
+
+.sidebar {
+  color: #fff;
+  height: 100vh;
+  overflow: auto; /* Thêm thanh cuộn trong sidebar nếu nội dung dài */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background: rgba(28, 17, 41, 0.88);
+}
+
+.menu-bar {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 1rem;
+  position: relative;
+}
+
+.toggle-theme-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.toggle {
+  margin-left: 15px;
+}
+
+.ant-layout {
+  height: 100vh;
+}
+
+.ant-layout-content {
+  padding: 15px;
+  overflow: auto; /* Thêm thanh cuộn khi dữ liệu lớn */
+  background-color: #f0f2f5; /* Nền sáng cho dữ liệu */
+}
+
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.ant-table th {
+  background-color: #1890ff; /* Nền xanh cho header */
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ant-table td {
+  text-align: center;
+  padding: 10px;
+}
+
+.table-row-even {
+  background-color: #f9f9f9; /* Nền màu xám nhạt cho hàng chẵn */
+}
+
+.table-row-odd {
+  background-color: #fff; /* Nền trắng cho hàng lẻ */
+}
+
+.table-row:hover {
+  background-color: #e6f7ff; /* Nền xanh nhạt khi hover */
+}
+
+.update-btn {
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background-color: #0050b3;
+}
+
+.reject-btn {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reject-btn:hover {
+  background-color: #a8071a;
+}
+  

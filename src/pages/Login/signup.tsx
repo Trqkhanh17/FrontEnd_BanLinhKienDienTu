@@ -42,7 +42,7 @@ const SignUpForm = () => {
       if (res.data.statusCode === 400) {
         return toast.error(res.data.message);
       }
-      if(res.data.statusCode === 404){
+      if (res.data.statusCode === 404) {
         return toast.error(res.data.message);
       }
       if (res.data.statusCode === 405)
@@ -50,7 +50,7 @@ const SignUpForm = () => {
       if (res.data.statusCode === 401) {
         return toast.warning(res.data.message);
       }
-      if(res.data.statusCode === 402){  
+      if (res.data.statusCode === 402) {
         return toast.warning(res.data.message);
       }
       if (res.data.statusCode === 403) {
@@ -65,19 +65,19 @@ const SignUpForm = () => {
   return (
     <div className="form-container sign-up-container">
       <form>
-        <h1>Create Account</h1>
+        <h1>Tạo Mới Tài Khoản</h1>
         <div className="social-container">
           <a href="#" className="social">
             <i className="fab fa-facebook-f" />
           </a>
-          <a href="#" className="social"> 
+          <a href="#" className="social">
             <i className="fab fa-google-plus-g" />
           </a>
           <a href="#" className="social">
             <i className="fab fa-linkedin-in" />
           </a>
         </div>
-        <span>or use your email for registration</span>
+        <span>hoặc bằng cách khác</span>
         <input
           type="email"
           value={email}
@@ -120,7 +120,7 @@ const SignUpForm = () => {
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Address"
         />
-        <button onClick={()=> handleOnSubmit()} type="button">Sign Up</button>
+        <button onClick={() => handleOnSubmit()} type="button">Đăng Kí</button>
       </form>
     </div>
   );

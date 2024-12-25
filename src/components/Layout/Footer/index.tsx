@@ -20,7 +20,7 @@ const Footer = () => {
           <Row className={`${style.boxParaghap}`}>
             <Col>
               <p>
-              Tech Shop is a store specializing in high-quality electronic components, catering to engineers, inventors, and technology enthusiasts.              </p>
+                Tech Shop là cửa hàng chuyên về linh kiện điện tử chất lượng cao, phục vụ cho các kỹ sư, nhà phát minh và những người đam mê công nghệ.</p>
             </Col>
           </Row>
           <Row className="mb-4">
@@ -58,8 +58,8 @@ const Footer = () => {
           <Row className="mt-1">
             <Col className="d-flex gap-2 align-items-center">
               <h5>Social:</h5>
-              <FaFacebook className={style.iconSocial}/>
-              <AiFillInstagram className={style.iconSocial} />   
+              <FaFacebook className={style.iconSocial} />
+              <AiFillInstagram className={style.iconSocial} />
               <FaYoutube className={style.iconSocial} />
               <FaTwitterSquare className={style.iconSocial} />
             </Col>

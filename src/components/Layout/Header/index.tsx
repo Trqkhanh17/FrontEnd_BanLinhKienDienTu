@@ -1,15 +1,17 @@
-import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Image, Row } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BsSearchHeart } from "react-icons/bs";
 import { TbShoppingBagHeart } from "react-icons/tb";
 import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { handleMenuBar } from "../../../redux/features/menuBarSlice";
 import Logo from "../../../assets/images/logo.jpg";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { fetchGetProfile } from "../../../redux/features/profileSlice";
+import { deleteCookie, getCookie } from "../../../utils";
 
 const navigateRoute = [
   {
@@ -36,7 +38,9 @@ const Header = () => {
   const cart = useAppSelector((state) => state.cart.dataCart);
   const statusBar = useAppSelector((state) => state.menuStatus.value);
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.profile.dataProfile);
+  const user = useAppSelector((state) => state.profile);
+  const [checkLogin, setCheckLogin] = useState(false);
+  const token = getCookie("token");
 
   useEffect(() => {
     navRefs.current.forEach((ref) => {
@@ -45,6 +49,14 @@ const Header = () => {
       }
     });
   }, [navRefs]);
+
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchGetProfile());
+      setCheckLogin(true);
+    }
+  }, [token, dispatch]);
 
   const handleClick = () => {
     dispatch(handleMenuBar(!statusBar));
@@ -109,23 +121,29 @@ const Header = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {!user ? (
-                <Dropdown.Item>Login</Dropdown.Item>
+              {!checkLogin ? (
+                <Dropdown.Item>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </Dropdown.Item>
               ) : (
                 <>
                   <Dropdown.Item>
-                    <NavLink to={"/profile"}>Profile</NavLink>
+                    <NavLink to={"/profile"}>Thông tin cá nhân</NavLink>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <NavLink to={"/order"}>Order History</NavLink>
+                    <NavLink to={"/order"}>Lịch sử đặt hàng</NavLink>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <NavLink to={"/login"}>Logout</NavLink>
+                    <Button onClick={() => {
+                      deleteCookie("token");
+                      navigate("/login");
+                    }}>Đăng xuất</Button>
                   </Dropdown.Item>
                 </>
               )}
             </Dropdown.Menu>
           </Dropdown>
+          <div>{user.dataProfile?.cus_name ? user.dataProfile.cus_name : "Loading"}</div>
         </Col>
       </Row>
     </Container>

@@ -1,9 +1,15 @@
+import LayoutDash from "./Layout";
+
+
 const Dashboard = () => {
-    
-    return (
-        <div>
-        <h1>This Is Dashboard</h1>
-        </div>
-    );
+
+  return (
+    <LayoutDash>
+      <div>
+        <h1>DASHBOARD</h1>
+      </div>
+    </LayoutDash>
+  );
 };
+
 export default Dashboard;

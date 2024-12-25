@@ -1,0 +1,74 @@
+/* CSS tùy chỉnh cho DataTable */
+.dataTables_wrapper .dataTables_paginate {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #1890ff; /* Màu xanh chủ đạo */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #0050b3; /* Màu xanh đậm hơn khi hover */
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #0050b3; /* Màu xanh đậm hơn cho trang hiện tại */
+    font-weight: bold;
+  }
+  
+  .dataTables_wrapper .dataTables_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .dataTables_wrapper .dataTables_filter label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 200px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .dataTables_wrapper .dataTables_filter input:focus {
+    border-color: #1890ff; /* Viền màu xanh khi focus */
+    outline: none;
+  }
+  
+  /* Tùy chỉnh hàng hiển thị số lượng */
+  .dataTables_wrapper .dataTables_length {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dataTables_wrapper .dataTables_length label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  

@@ -94,7 +94,7 @@ const Profile = () => {
   return (
     <Layout>
       <div className="profile-container">
-        <h2 className="profile-title">Profile</h2>
+        <h2 className="profile-title">Thông tin</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="profile-form-group">
             <label>Avatar</label>
@@ -108,7 +108,7 @@ const Profile = () => {
                 onChange={handleInputChange}
                 accept="image/*"
               />
-              Choose File
+              Chọn ảnh
             </label>
           </div>
           <div className="profile-form-group">
@@ -122,7 +122,7 @@ const Profile = () => {
             />
           </div>
           <div className="profile-form-group">
-            <label>Name</label>
+            <label>Tên khách hàng</label>
             <input
               type="text"
               name="name"
@@ -132,7 +132,7 @@ const Profile = () => {
             />
           </div>
           <div className="profile-form-group">
-            <label>Phone</label>
+            <label>Số điện thoại</label>
             <input
               type="text"
               name="phone"
@@ -142,7 +142,7 @@ const Profile = () => {
             />
           </div>
           <div className="profile-form-group">
-            <label>Birthday</label>
+            <label>Ngày tháng năm sinh</label>
             <input
               type="date"
               name="birthday"
@@ -152,7 +152,7 @@ const Profile = () => {
             />
           </div>
           <div className="profile-form-group">
-            <label>Address</label>
+            <label>Địa chỉ</label>
             <input
               type="text"
               name="address"
@@ -163,7 +163,7 @@ const Profile = () => {
           </div>
           <div className="profile-form-group">
             <button type="submit">
-              Update Profile
+              Cập nhật thông tin
             </button>
           </div>
         </form>
