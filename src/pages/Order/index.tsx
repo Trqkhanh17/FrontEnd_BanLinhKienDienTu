@@ -14,7 +14,6 @@ const OrderHistory = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const paymentId = urlParams.get('paymentId');
       const payerId = urlParams.get('PayerID');
-      console.log(urlParams);
 
       if (paymentId && payerId) {
         handlePaymentResult(paymentId, payerId);
@@ -64,15 +63,12 @@ const OrderHistory = () => {
         acc[order.order_id].details.push(order);
         return acc;
       }, {});
-      console.log("CHECKKK", res.data);
 
       setData(Object.values(groupedOrders));
     } catch (error) {
       toast.error("Failed to get order history: " + error);
     }
   };
-  console.log("Check data:", data);
-  console.log(User?.cus_id.toString());
 
   const checkStatus = (status: number) => {
     switch (status) {

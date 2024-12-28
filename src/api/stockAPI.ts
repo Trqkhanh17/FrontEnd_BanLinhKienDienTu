@@ -14,6 +14,6 @@ export const exportStock = async(data:any)=>{
     return res;
 }
 export const getListStockByproId = async(pro_id:any)=>{
-    const res:AxiosResponse = await apiClient.get(`/stock/getStockByproId`,pro_id);
+    const res:AxiosResponse = await apiClient.get(`/stock/getStockByproId/${pro_id}`);
     return res;
 }

@@ -7,6 +7,8 @@ import { createOrderAPI, createOrderDetailAPI } from "../../api/orderAPI";
 import { useNavigate } from "react-router-dom";
 import { getSession, setSession } from "../../utils";
 import { sendMailOrderAPI } from "../../api/sendMailAPI";
+import { exportStock, getListStockByproId } from "../../api/stockAPI";
+import { log } from "node:console";
 const Payment = () => {
   console.log(getSession("yourCart"));
   const emailProfile = useAppSelector((state) => state.profile.dataProfile?.cus_email);
@@ -15,6 +17,7 @@ const Payment = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [note, setNote] = useState("");
+  const [stockId, setStockId] = useState("");
   const cartList = useAppSelector((state) => state.cart.dataCart);
   const User = useAppSelector((state) => state.profile.dataProfile);
   useEffect(() => {
@@ -73,9 +76,18 @@ const Payment = () => {
             detail_quantity: item.quantity,
             detail_price: item.price,
           };
+
           const res = await createOrderDetailAPI(dataDetail);
+          console.log("check res:", res);
+
           if (res.data.statusCode === 400) {
             return toast.error(res.data.message);
+          }
+          console.log("check itedddm:", item.pro_id);
+          const proId = item.pro_id;
+          const resStock = await exportStock({ pro_id: proId, stock_export: item.quantity });
+          if (resStock.data.statusCode === 400) {
+            return toast.error(resStock.data.message);
           }
           const info = {
             email: email,
@@ -119,11 +131,12 @@ const Payment = () => {
 
         setSession("yourCart", filter);
 
-        navigate("/order");
+        //navigate("/order");
 
         return toast.success("Order successfully placed");
       }
-      return toast.error("ERROR");
+      return toast.error("Order failed");
+
     } catch (error) {
       console.log(error);
     }
@@ -197,6 +210,13 @@ const Payment = () => {
           const res = await createOrderDetailAPI(dataDetail);
           if (res.data.statusCode === 400) {
             return toast.error(res.data.message);
+          }
+          const dataStock = await getListStockByproId(item.pro_id);
+          console.log("check dataStock:", dataStock);
+          const proId = item.pro_id;
+          const resStock = await exportStock({ pro_id: proId, stock_export: item.quantity });
+          if (resStock.data.statusCode === 400) {
+            return toast.error(resStock.data.message);
           }
           const info = {
             email: email,
