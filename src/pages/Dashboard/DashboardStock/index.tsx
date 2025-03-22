@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import LayoutDash from "../Layout";
 import { getListStock, updateStock } from "../../../api/stockAPI";
-import DataTable from 'datatables.net-react';
-import DT from 'datatables.net-dt';
 import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../../hooks";
+import DataTable from 'datatables.net-react';
+import DT from 'datatables.net-dt';
 DataTable.use(DT);
 
 const StockDas = () => {
@@ -16,7 +16,7 @@ const StockDas = () => {
     const [stock_import, SetStockImport] = useState("");
     useEffect(() => {
         getAllStock();
-    }, [])
+    }, [data]);
     const staffId = useAppSelector((state) => state.profile.dataProfile?.staff_id);
     const getAllStock = async () => {
         const res = await getListStock();
@@ -79,13 +79,13 @@ const StockDas = () => {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>staff</th>
-                                <th>San Pham</th>
-                                <th>So Luong Con Lai</th>
-                                <th>So Luong Da Xuat</th>
-                                <th>Ngay Nhap Vao</th>
-                                <th>Ngay Cap Nhat</th>
-                                <th>Chuc Nang</th>
+                                <th>Nhân Viên</th>
+                                <th>Sản Phẩm</th>
+                                <th>Số Lượng Còn Lại</th>
+                                <th>Số Lượng Đã Xuất</th>
+                                <th>Ngày Nhập Vào</th>
+                                <th>Ngày Thêm Vào</th>
+                                <th>Chức Năng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +99,6 @@ const StockDas = () => {
                                     <td>{item.date_import ? formatDate(item.date_import.split("T")[0]) : "Chưa nhập hàng"}</td>
                                     <td>{item.stock_update ? formatDate(item.stock_update.split("T")[0]) : "Chưa sửa đổi"}</td>
                                     <td><Button onClick={() => { SetStockId(item.stock_id); SetProId(item.pro_id); SetShowForm(true) }}>Nhập Hàng</Button></td>
-                                    <td></td>
                                 </tr>
                             ))}
                         </tbody>

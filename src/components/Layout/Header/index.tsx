@@ -41,7 +41,7 @@ const Header = () => {
   const user = useAppSelector((state) => state.profile);
   const [checkLogin, setCheckLogin] = useState(false);
   const token = getCookie("token");
-
+  const [hover, setHover] = useState(false);
   useEffect(() => {
     navRefs.current.forEach((ref) => {
       if (ref?.classList[1] === "active") {
@@ -71,7 +71,9 @@ const Header = () => {
       </Row>
       <Row className={`${style.boxLogo}`}>
         <Col>
-          <Image className={style.logo} src={Logo} fluid width={"100px"} />
+          <Image style={{ cursor: hover ? 'pointer' : 'default' }}
+            onMouseOver={() => setHover(true)}
+            onMouseOut={() => setHover(false)} className={style.logo} src={Logo} fluid width={"100px"} onClick={() => navigate("/")} />
         </Col>
       </Row>
       <Row

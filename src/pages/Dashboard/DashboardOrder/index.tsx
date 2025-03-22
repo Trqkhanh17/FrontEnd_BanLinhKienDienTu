@@ -82,7 +82,7 @@ const OrderDas = () => {
                         : (
                             <DataTable
                                 className="table table-striped custom-datatable"
-                                options={{ lengthMenu: [5], pageLength: 5 }}>
+                                options={{ lengthMenu: [10, 15, 20], pageLength: 10 }}>
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>

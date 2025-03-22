@@ -7,8 +7,8 @@ import { listCategoryAPI } from "../../../api/categoryAPI";
 import { uploadFileAPI } from "../../../utils";
 import { Button, Form } from "react-bootstrap";
 import DataTable from 'datatables.net-react';
-import DT from 'datatables.net-bs5';
-
+import DT from 'datatables.net-dt';
+import "./dashboardPro.css";
 DataTable.use(DT);
 
 const ListAllProductDas = () => {

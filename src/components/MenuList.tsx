@@ -2,6 +2,7 @@ import { Menu } from "antd";
 import {
   AppstoreOutlined,
   AreaChartOutlined,
+  BarChartOutlined,
   BarsOutlined,
   HomeOutlined,
   PayCircleOutlined,
@@ -53,9 +54,9 @@ const menuItems = [
     label: "Kho Hàng",
   },
   {
-    key: "setting",
-    icon: <SettingOutlined />,
-    label: "Setting",
+    key: "dashboard/analysis",
+    icon: <BarChartOutlined />,
+    label: "Thống Kê",
   },
 ];
 interface Props {

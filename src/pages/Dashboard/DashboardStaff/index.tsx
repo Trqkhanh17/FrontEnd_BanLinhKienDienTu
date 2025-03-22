@@ -117,7 +117,7 @@ const StaffDashboard = () => {
             {!data || data.length === 0 ? (
                 <h1>Loading...</h1>
             ) : (
-                <DataTable options={{ lengthMenu: [5], pageLength: 5 }}>
+                <DataTable options={{ lengthMenu: [10, 15, 20], pageLength: 10 }}>
                     <thead>
                         <tr>
                             <th>ID</th>

@@ -8,15 +8,16 @@ import { addCartToStore } from "./redux/features/cartSlice";
 import { getSession } from "./utils";
 import { toast } from "react-toastify";
 import { YourCart } from "./interfaces/cartInterface";
-import Dashboard from "./pages/DashBoard";
-import ListAllProductDas from "./pages/DashBoard/DashBoardProduct";
-import EditCustomize from "./pages/DashBoard/DashBoardProduct/ManagerProduct/edit";
-import CategoryDas from "./pages/DashBoard/DashboardCategory";
-import CustomersDas from "./pages/DashBoard/DashboardCustomers";
-import StaffDashboard from "./pages/DashBoard/DashboardStaff";
-import OrderDas from "./pages/DashBoard/DashboardOrder";
-import UpdateStatusDas from "./pages/DashBoard/DashboardOrder/ManagerOrder/updateOrderDas";
-import StockDas from "./pages/DashBoard/DashboardStock";
+import Statistics from "./pages/DashBoard/DashboardAnalytics";
+const Dashboard = lazy(() => import("./pages/DashBoard"));
+const ListAllProductDas = lazy(() => import("./pages/DashBoard/DashBoardProduct"));
+const EditCustomize = lazy(() => import("./pages/DashBoard/DashBoardProduct/ManagerProduct/edit"));
+const CategoryDas = lazy(() => import("./pages/DashBoard/DashboardCategory"));
+const CustomersDas = lazy(() => import("./pages/DashBoard/DashboardCustomers"));
+const StaffDashboard = lazy(() => import("./pages/DashBoard/DashboardStaff"));
+const OrderDas = lazy(() => import("./pages/DashBoard/DashboardOrder"));
+const UpdateStatusDas = lazy(() => import("./pages/DashBoard/DashboardOrder/ManagerOrder/updateOrderDas"));
+const StockDas = lazy(() => import("./pages/DashBoard/DashboardStock"));
 const Loading = lazy(() => import("./components/Loading"));
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -73,6 +74,7 @@ const App = () => {
           <Route path="/dashboard/order" element={<OrderDas />} />
           <Route path="/edit-product/:proId" element={<EditCustomize />} />
           <Route path="/dashboard/stock" element={<StockDas />} />
+          <Route path="/dashboard/analysis" element={<Statistics />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

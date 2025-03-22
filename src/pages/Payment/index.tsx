@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { getSession, setSession } from "../../utils";
 import { sendMailOrderAPI } from "../../api/sendMailAPI";
 import { exportStock, getListStockByproId } from "../../api/stockAPI";
-import { log } from "node:console";
+import Layout from "../../components/Layout";
 const Payment = () => {
   console.log(getSession("yourCart"));
   const emailProfile = useAppSelector((state) => state.profile.dataProfile?.cus_email);
@@ -17,7 +17,6 @@ const Payment = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [note, setNote] = useState("");
-  const [stockId, setStockId] = useState("");
   const cartList = useAppSelector((state) => state.cart.dataCart);
   const User = useAppSelector((state) => state.profile.dataProfile);
   useEffect(() => {
@@ -131,7 +130,7 @@ const Payment = () => {
 
         setSession("yourCart", filter);
 
-        //navigate("/order");
+        navigate("/order");
 
         return toast.success("Order successfully placed");
       }
@@ -275,180 +274,180 @@ const Payment = () => {
     }
   };
   return (
-    <Container className={style.BoxPayment} fluid>
-      <Row className={style.boxContent}>
-        <Col className={style.paymentLeft} md={6}>
-          <Container className={style.BoxDeliveryInformation}>
-            <Row>
-              <Col className="p-0">
-                <h1 className={style.titleNameShop}>JoyFull Letter</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Form className={style.boxForm}>
-                <Row>
-                  <Col className="p-0">
-                    <h5>Delivery information</h5>
-                  </Col>
-                </Row>
-                <Row>
-                  <Row className="mb-2">
-                    <Form.Group
-                      as={Col}
-                      className="p-0"
-                      controlId="validationCustom01"
-                    >
-                      <Form.Label>Full name</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Full name"
-                        defaultValue={fullName}
-                        onChange={(e) => {
-                          setFullName(e.target.value);
-                        }}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
+    <Layout>
+      <Container className={style.BoxPayment} fluid>
+        <Row className={style.boxContent}>
+          <Col className={style.paymentLeft} md={6}>
+            <Container className={style.BoxDeliveryInformation}>
+              <Row>
+                <Col className="p-0">
+                  <h1 className={style.titleNameShop}>Tech Shop</h1>
+                </Col>
+              </Row>
+              <Row>
+                <Form className={style.boxForm}>
+                  <Row>
+                    <Col className="p-0">
+                      <h5>Thông tin nhận hàng</h5>
+                    </Col>
                   </Row>
-                  <Row className="mb-2 d-flex justify-content-between">
-                    <Form.Group
-                      as={Col}
-                      className="p-0"
-                      md="7"
-                      controlId="validationCustom02"
-                    >
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control
-                        required
-                        type="email"
-                        placeholder="Email"
-                        defaultValue={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group
-                      as={Col}
-                      className="p-0"
-                      md="4"
-                      controlId="validationCustom03"
-                    >
-                      <Form.Label>Phone number</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Phone number"
-                        defaultValue={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                  </Row>
-
-                  <Row className="mb-2">
-                    <Form.Group
-                      as={Col}
-                      className="p-0"
-                      controlId="validationCustom06"
-                    >
-                      <Form.Label>Address</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Address"
-                        defaultValue={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                  </Row>
-                  <Row className="mb-2">
-                    <Form.Group
-                      as={Col}
-                      className="p-0"
-                      controlId="validationCustom07"
-                    >
-                      <Form.Label>Note</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Note"
-                        as="textarea"
-                        rows={2}
-                        defaultValue={note}
-                        onChange={(e) => setNote(e.target.value)}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                  </Row>
-                </Row>
-              </Form>
-            </Row>
-            <Row className="d-flex justify-content-between align-items-center">
-              <FormSelect
-                className="mb-3"
-                aria-label="Chọn hình thức thanh toán"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                <option value="" disabled>
-                  -- Chọn hình thức thanh toán --
-                </option>
-                <option value="paypal">PayPal</option>
-                <option value="cod">Thanh toán khi nhận hàng (COD)</option>
-              </FormSelect>
-            </Row>
-            <Row className="d-flex justify-content-between align-items-center">
-              {checkPaymentMethod() ? (<Col className="text-end">
-                <Button onClick={async (e) => { await handlePayPalPayment(e) }}>Thanh toán</Button>
-              </Col>) : (<Col className="text-end">
-                <Button onClick={async (e: any) => { await handleFormSubmit(e) }}>Thanh toán</Button>
-              </Col>)}
-            </Row>
-          </Container>
-        </Col>
-        <Col className={style.paymentRight} md={6}>
-          <Container className={style.boxPR}>
-            <Row className={style.boxProPayment}>
-              <Col className="">
-                {cartList &&
-                  cartList.listCart &&
-                  cartList.listCart.length > 0 &&
-                  cartList.listCart.map((item, index) => (
-                    <Row
-                      key={index}
-                      className="border pt-2 pb-2 d-flex justify-content-around align-items-center mb-3"
-                    >
-                      <Col md={3} className="position-relative">
-                        <Image
-                          className={style.imagePR}
-                          src={item.pro_img}
-                          fluid
+                  <Row>
+                    <Row className="mb-2">
+                      <Form.Group
+                        as={Col}
+                        className="p-0"
+                        controlId="validationCustom01"
+                      >
+                        <Form.Label>Họ tên</Form.Label>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Họ và tên"
+                          defaultValue={fullName}
+                          onChange={(e) => {
+                            setFullName(e.target.value);
+                          }}
                         />
-                        <span className={style.quantityP}>{item.quantity}</span>
-                      </Col>
-                      <Col className={style.descriptionPR} md={6}>
-                        {item.pro_name}
-                      </Col>
-                      <Col md={3}>
-                        <span className="fw-medium">{item.price} vnd</span>
-                      </Col>
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
                     </Row>
-                  ))}
-              </Col>
-            </Row>
-            <Row className="mt-3">
-              <Col className="fw-bold fs-5">Total</Col>
-              <Col>
-                <h5 className="fw-bold fs-5">{total} vnd</h5>
-              </Col>
-            </Row>
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+                    <Row className="mb-2 d-flex justify-content-between">
+                      <Form.Group
+                        as={Col}
+                        className="p-0"
+                        md="7"
+                        controlId="validationCustom02"
+                      >
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          required
+                          type="email"
+                          placeholder="email nhận hàng"
+                          defaultValue={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group
+                        as={Col}
+                        className="p-0"
+                        md="4"
+                        controlId="validationCustom03"
+                      >
+                        <Form.Label>Số điện thoại</Form.Label>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Số điện thoại"
+                          defaultValue={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+
+                    <Row className="mb-2">
+                      <Form.Group
+                        as={Col}
+                        className="p-0"
+                        controlId="validationCustom06"
+                      >
+                        <Form.Label>Địa chỉ</Form.Label>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Địa chỉ giao hàng"
+                          defaultValue={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-2">
+                      <Form.Group
+                        as={Col}
+                        className="p-0"
+                        controlId="validationCustom07"
+                      >
+                        <Form.Label>Ghi chú</Form.Label>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Nhập ghi chú nếu có"
+                          as="textarea"
+                          rows={2}
+                          defaultValue={note}
+                          onChange={(e) => setNote(e.target.value)}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                  </Row>
+                </Form>
+              </Row>
+              <Row className="d-flex justify-content-between align-items-center">
+                <p style={{ fontWeight: 'bold' }}>Vui lòng chọn hình thức thanh toán</p>
+                <FormSelect
+                  className="mb-3"
+                  aria-label="Chọn hình thức thanh toán"
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                >
+                  <option value="" disabled>
+                    -- Chọn hình thức thanh toán --
+                  </option>
+                  <option value="paypal">PayPal</option>
+                  <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+                </FormSelect>
+              </Row>
+              <Row className="d-flex justify-content-between align-items-center">
+                {checkPaymentMethod() ? (<Col className="text-end">
+                  <Button onClick={async (e) => { await handlePayPalPayment(e) }}>Thanh toán</Button>
+                </Col>) : (<Col className="text-end">
+                  <Button onClick={async (e: any) => { await handleFormSubmit(e) }}>Thanh toán</Button>
+                </Col>)}
+              </Row>
+            </Container>
+          </Col>
+          <Col className={style.paymentRight} md={6}>
+            <Container className={style.boxPR}>
+              <Row className={style.boxProPayment}>
+                <Col className="">
+                  {cartList &&
+                    cartList.listCart &&
+                    cartList.listCart.length > 0 &&
+                    cartList.listCart.map((item, index) => (
+                      <Row
+                        key={index}
+                        className="border pt-2 pb-2 d-flex justify-content-around align-items-center mb-3"
+                      >
+                        <Col md={3} className="position-relative">
+                          <Image
+                            className={style.imagePR}
+                            src={item.pro_img}
+                            fluid
+                          />
+                          <span className={style.quantityP}>{item.quantity}</span>
+                        </Col>
+                        <Col className={style.descriptionPR} md={6}>
+                          {item.pro_name}
+                        </Col>
+                        <Col md={3}>
+                          <span className="fw-medium">{item.price} vnd</span>
+                        </Col>
+                      </Row>
+                    ))}
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col className="fw-bold fs-5">Tổng giá:  <span className="fw-bold fs-5">{total} vnd</span></Col>
+              </Row>
+            </Container>
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
   );
 };
 export default Payment;

@@ -146,7 +146,7 @@ const CategoryDas = () => {
           <h1>Loading...</h1>
         ) : (
           <DataTable
-            options={{ lengthMenu: [5] }}
+            options={{ lengthMenu: [10] }}
             className="table table-striped display ">
             <thead>
               <tr>

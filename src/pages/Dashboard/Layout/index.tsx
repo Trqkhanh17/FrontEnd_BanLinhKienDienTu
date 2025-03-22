@@ -22,7 +22,7 @@ const LayoutDash = ({ children }: any) => {
 
 
   return (
-    <Layout style={{ height: "100vh", width: "100vw" }}>
+    <Layout style={{ height: "100%", width: "100vw" }}>
       <Sider
         collapsed={conllapsed}
         theme={darkTheme ? "dark" : "light"}
