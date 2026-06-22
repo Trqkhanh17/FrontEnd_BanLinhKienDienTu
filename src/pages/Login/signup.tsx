@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Register, registerAPI } from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
+import { setCookie } from "../../utils";
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +56,9 @@ const SignUpForm = () => {
       }
       if (res.data.statusCode === 403) {
         return toast.warning(res.data.message);
+      }
+      if (res.data.token) {
+        setCookie("token", res.data.token, 7);
       }
       return navigate("/");
     } catch (error) {

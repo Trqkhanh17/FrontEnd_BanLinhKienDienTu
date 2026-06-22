@@ -15,6 +15,16 @@ export const listNewProduct = async () => {
   const res: AxiosResponse = await apiClient.get(`/product/new-product`);
   return res;
 };
+export const findProductAPI = async (inforFind: string) => {
+  const res: AxiosResponse = await apiClient.get(`/product/find-product`, {
+    params: { inforFind },
+  });
+  return res;
+};
+export const listProductByCategoryAPI = async (cateId: string | number) => {
+  const res: AxiosResponse = await apiClient.get(`/product/productByCate/${cateId}`);
+  return res;
+};
 export const createProductAPI = async (product: any) => {
   const res: AxiosResponse = await apiClient.post(`/product/create`, product);
   return res;
