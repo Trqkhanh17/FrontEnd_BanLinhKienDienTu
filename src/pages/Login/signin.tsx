@@ -2,13 +2,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { loginAPI } from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks";
 import { setCookie } from "../../utils";
 function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
@@ -30,6 +28,9 @@ function SignInForm() {
       }
       if (res.data.statusCode === 401) {
         return toast.error(`${res.data.message}`);
+      }
+      if (res.data.token) {
+        setCookie("token", res.data.token, 7);
       }
       toast.success("Login successfully");
       if (res.data.role === 1) {

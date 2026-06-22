@@ -6,17 +6,22 @@ import { getProductByIDAPI, updateProductAPI } from "../../../../api/productAPI"
 import { listCategoryAPI } from "../../../../api/categoryAPI";
 import { toast } from "react-toastify";
 
+interface Category {
+  cate_id: string;
+  cate_name: string;
+}
+
 function EditCustomize() {
   const { proId } = useParams();
   const navigate = useNavigate();
-  const [dataCate, setDataCate] = useState([]);
+  const [dataCate, setDataCate] = useState<Category[]>([]);
   const [proName, setProName] = useState("");
   const [cateId, setCateId] = useState("");
   const [price, setPrice] = useState("");
   const [proBrand, setBrand] = useState("");
   const [proDescription, setDescription] = useState("");
   const [proOrigin, setOrigin] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!proId) {

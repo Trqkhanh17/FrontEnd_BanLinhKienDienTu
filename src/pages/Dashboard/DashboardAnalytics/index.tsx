@@ -11,33 +11,34 @@ import {
 import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { toast } from "react-toastify";
-import { getDailyStatsAPI } from "../../../api/statisticsAPI";
+import { getDailyStatsAPI, getListStatistics, getMonthlyStatsAPI, getYearlyStatsAPI } from "../../../api/statisticsAPI";
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const emptyStats = {
+    Đã_Thanh_Toán: 0,
+    Chưa_Thanh_Toán: 0,
+    Tổng_Doanh_Thu: 0
+};
+
+const normalizeStats = (value: any) => {
+    if (Array.isArray(value)) {
+        return value.reduce((total, item) => ({
+            Đã_Thanh_Toán: total.Đã_Thanh_Toán + Number(item.Đã_Thanh_Toán || 0),
+            Chưa_Thanh_Toán: total.Chưa_Thanh_Toán + Number(item.Chưa_Thanh_Toán || 0),
+            Tổng_Doanh_Thu: total.Tổng_Doanh_Thu + Number(item.Tổng_Doanh_Thu || 0),
+        }), emptyStats);
+    }
+
+    return value || emptyStats;
+};
+
 const Statistics = () => {
-    const [dataOverallStats, setData] = useState({
-        Đã_Thanh_Toán: 0,
-        Chưa_Thanh_Toán: 0,
-        Tổng_Doanh_Thu: 0
-    });
-    const [dataDailyStats, setDataDailyStats] = useState({
-        Đã_Thanh_Toán: 0,
-        Chưa_Thanh_Toán: 0,
-        Tổng_Doanh_Thu: 0
-    });
-    const [dataMonthlyStats, setDataMonthlyStats] = useState({
-        months: [],
-        Đã_Thanh_Toán: [],
-        Chưa_Thanh_Toán: [],
-        Tổng_Doanh_Thu: []
-    });
-    const [dataYearlyStats, setDataYearlyStats] = useState({
-        Đã_Thanh_Toán: 0,
-        Chưa_Thanh_Toán: 0,
-        Tổng_Doanh_Thu: 0
-    });
+    const [dataOverallStats, setData] = useState(emptyStats);
+    const [dataDailyStats, setDataDailyStats] = useState(emptyStats);
+    const [dataMonthlyStats, setDataMonthlyStats] = useState(emptyStats);
+    const [dataYearlyStats, setDataYearlyStats] = useState(emptyStats);
     const formatDate = (dateString: any) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -55,10 +56,9 @@ const Statistics = () => {
 
     const getOverallStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-overall");
-            const result = await response.json();
-            if (result && result.data) {
-                setData(result.data);
+            const response = await getListStatistics();
+            if (response.data.data) {
+                setData(normalizeStats(response.data.data));
             } else {
                 toast.error("Invalid response format from API");
             }
@@ -75,7 +75,7 @@ const Statistics = () => {
             if (!response.data.data) {
                 toast.error(response.data.message);
             }
-            setDataDailyStats(response.data.data);
+            setDataDailyStats(normalizeStats(response.data.data));
         } catch (error) {
             console.error(error);
             toast.error("Error loading data!");
@@ -83,10 +83,9 @@ const Statistics = () => {
     };
     const getMonthlyStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-monthly");
-            const result = await response.json();
-            if (result && result.data) {
-                setDataMonthlyStats(result.data);
+            const response = await getMonthlyStatsAPI();
+            if (response.data.data) {
+                setDataMonthlyStats(normalizeStats(response.data.data));
             } else {
                 toast.error("Invalid response format from API");
             }
@@ -97,10 +96,9 @@ const Statistics = () => {
     };
     const getYearlyStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-yearly");
-            const result = await response.json();
-            if (result && result.data) {
-                setDataYearlyStats(result.data);
+            const response = await getYearlyStatsAPI();
+            if (response.data.data) {
+                setDataYearlyStats(normalizeStats(response.data.data));
             } else {
                 toast.error("Invalid response format from API");
             }
