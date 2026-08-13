@@ -1,6 +1,4 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import style from "./style.module.css";
 import { toast } from "react-toastify";
 import { YourCart } from "../../interfaces/cartInterface";
 import { getSession, setSession } from "../../utils";
@@ -13,115 +11,46 @@ interface Props {
   proId?: number;
   valueP?: number;
 }
-const MyCount: React.FC<Props> = ({ onChange, width, proId, valueP }) => {
-  const [value, setValue] = useState(valueP || 0);
+
+const MyCount: React.FC<Props> = ({ onChange, proId, valueP }) => {
+  const [value, setValue] = useState(valueP || 1);
   const user = useAppSelector((state) => state.profile.dataProfile);
   const dispatch = useAppDispatch();
 
-  const handleIncreaseValue = () => {
-    upQuantity();
-    setValue((state) => state + 1);
+  const updateCartQuantity = (change: number) => {
+    const carts: YourCart[] = getSession("yourCart") || [];
+    const userCart = carts.find((cart) => cart.email === user?.cus_email);
+    const product = userCart?.listCart.find((item) => item.pro_id === proId);
+    if (!userCart || !product) return;
+    product.quantity = Math.max(1, product.quantity + change);
+    setSession("yourCart", carts);
+    dispatch(addCartToStore(userCart));
   };
 
-  const handleDescreaseValue = () => {
-    lowQuantity();
-    setValue((state) => state - 1);
+  const changeValue = (next: number) => {
+    if (next < 1) {
+      toast.warning("Số lượng phải lớn hơn 0");
+      return;
+    }
+    updateCartQuantity(next - value);
+    setValue(next);
   };
 
-  const handleSetValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value);
-    if (Number.isNaN(value)) {
-      setValue(1);
-    } else {
-      setValue(value);
-    }
-  };
-
-  const upQuantity = () => {
-    // Lấy danh sách giỏ hàng từ session
-    const getCartItem: YourCart[] = getSession("yourCart") || [];
-
-    // Tìm giỏ hàng của người dùng hiện tại dựa trên email
-    const userCart = getCartItem.find((cart) => cart.email === user?.cus_email);
-
-    if (!userCart) {
-      return null;
-    }
-
-    // Giỏ hàng đã tồn tại, kiểm tra sản phẩm trong giỏ
-    const existingProductIndex = userCart.listCart.findIndex(
-      (item) => item.pro_id === proId
-    );
-
-    if (existingProductIndex !== -1) {
-      // Sản phẩm đã tồn tại trong giỏ, cập nhật số lượng
-      userCart.listCart[existingProductIndex].quantity += 1;
-    }
-
-    // Cập nhật giỏ hàng vào session
-    setSession("yourCart", getCartItem);
-    const filter = getCartItem.filter((x) => x.email === user?.cus_email);
-    dispatch(addCartToStore(filter[0]));
-  };
-
-  const lowQuantity = () => {
-    // Lấy danh sách giỏ hàng từ session
-    const getCartItem: YourCart[] = getSession("yourCart") || [];
-
-    // Tìm giỏ hàng của người dùng hiện tại dựa trên email
-    const userCart = getCartItem.find((cart) => cart.email === user?.cus_email);
-
-    if (!userCart) {
-      return null;
-    }
-
-    // Giỏ hàng đã tồn tại, kiểm tra sản phẩm trong giỏ
-    const existingProductIndex = userCart.listCart.findIndex(
-      (item) => item.pro_id === proId
-    );
-
-    if (existingProductIndex !== -1) {
-      // Sản phẩm đã tồn tại trong giỏ, cập nhật số lượng
-      userCart.listCart[existingProductIndex].quantity -= 1;
-    }
-
-    // Cập nhật giỏ hàng vào session
-    setSession("yourCart", getCartItem);
-    const filter = getCartItem.filter((x) => x.email === user?.cus_email);
-    dispatch(addCartToStore(filter[0]));
+  const handleSetValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const next = Number.parseInt(event.target.value, 10);
+    if (!Number.isNaN(next)) changeValue(next);
   };
 
   useEffect(() => {
-    if (value <= 0) {
-      toast.warning("Quantity must be is positive number!!!");
-      setValue(1);
-    }
-    if (valueP) {
-      onChange(valueP);
-    } else {
-      onChange(1);
-    }
-  }, [value, onChange, valueP]);
+    onChange(value);
+  }, [value, onChange]);
 
   return (
-    <Container fluid className={style.containerCount}>
-      <Row>
-        <Col className={style.boxDes} onClick={() => handleDescreaseValue()}>
-          -
-        </Col>
-        <Col className={`${style.boxValue}`} style={{ width: width }}>
-          <input
-            className={style.inputValue}
-            type="number"
-            onChange={(e) => handleSetValue(e)}
-            value={value}
-          />
-        </Col>
-        <Col className={style.boxInc} onClick={() => handleIncreaseValue()}>
-          +
-        </Col>
-      </Row>
-    </Container>
+    <div className="inline-flex h-10 items-stretch overflow-hidden rounded-lg border border-slate-300 bg-white">
+      <button type="button" className="w-10 bg-slate-100 text-lg font-bold hover:bg-slate-200" onClick={() => changeValue(value - 1)} aria-label="Giảm số lượng">−</button>
+      <input className="w-12 border-x border-slate-300 bg-white text-center outline-none [appearance:textfield]" type="number" min="1" onChange={handleSetValue} value={value} aria-label="Số lượng" />
+      <button type="button" className="w-10 bg-slate-100 text-lg font-bold hover:bg-slate-200" onClick={() => changeValue(value + 1)} aria-label="Tăng số lượng">+</button>
+    </div>
   );
 };
 

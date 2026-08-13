@@ -94,10 +94,16 @@ const CategoryDas = () => {
 
   return (
     <LayoutDash>
-      <div>
-        <h2>Category List</h2>
+      <div className="panel min-w-0 overflow-hidden">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><h1 className="dashboard-title !mb-0">Danh sách loại sản phẩm</h1>
+        {!showForm ? (<Button
+          className="btn btn-primary"
+          onClick={() => { setShowForm(true); setShowFormEdit(false); }}
+        >+ Thêm mới</Button>)
+          :
+          (<Button variant="danger" onClick={() => setShowForm(false)}>Đóng</Button>)}</div>
         {showFormEdit && (
-          <Form onSubmit={handleUpdate}>
+          <Form className="mb-5 max-w-xl rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={handleUpdate}>
             <div className="form-group">
               <Form.Label htmlFor="cateName">Tên Loại Sản Phẩm</Form.Label>
               <Form.Control
@@ -108,25 +114,13 @@ const CategoryDas = () => {
                 onChange={(e) => setCateName(e.target.value)}
               />
             </div>
-            <Button type="submit" className="btn btn-primary">
+            <Button type="submit" className="mt-3 btn btn-primary">
               Cập Nhật
             </Button>
           </Form>
         )}
-        {!showForm ? (<Button
-          className="btn btn-primary"
-          onClick={() => { setShowForm(true), setShowFormEdit(false) }}
-        >Thêm Mới</Button>)
-          :
-          (
-            <Button
-              className="btn btn-primary"
-              onClick={() => setShowForm(false)}
-              style={{ backgroundColor: "red" }}
-            >Đóng</Button>
-          )}
         {showForm && (
-          <Form onSubmit={handleSubmitCreate}>
+          <Form className="mb-5 max-w-xl rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmitCreate}>
             <div className="form-group">
               <Form.Label htmlFor="cateName">Tên Loại Sản Phẩm</Form.Label>
               <Form.Control
@@ -137,7 +131,7 @@ const CategoryDas = () => {
                 onChange={(e) => setCateName(e.target.value)}
               />
             </div>
-            <Button type="submit" className="btn btn-primary">
+            <Button type="submit" className="mt-3 btn btn-primary">
               Thêm Mới
             </Button>
           </Form>

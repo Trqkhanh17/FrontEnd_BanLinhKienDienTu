@@ -1,5 +1,3 @@
-import { Col, Image, Row } from "react-bootstrap";
-import style from "./style.module.css";
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import MyCount from "../Count";
@@ -48,36 +46,26 @@ const BoxCard: React.FC<Props> = ({
   };
 
   return (
-    <Row className={style.boxContainerBoxCart}>
-      <MdDeleteForever
-        className={style.removeCart}
-        onClick={() => deleteCart()}
-      />
-      <Col md={3} className="p-0">
-        <Image className={style.imageBoxCart} src={image} fluid alt={image} />
-      </Col>
-      <Col md={6} className="mt-2">
-        <h5>{name}</h5>
-        <p className={style.decriptionCart}>{decription}</p>
-        <div className={style.priceProduct}>{price} vnd</div>
-      </Col>
-      <Col
-        className="d-flex flex-column mt-2 mb-2 justify-content-around align-items-end"
-        md={3}
-      >
-        <Row>
-          <strong>{(price * quantity).toFixed(0)} vnd</strong>
-        </Row>
-        <Row className="p-2">
+    <article className="relative grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-[120px_1fr_auto] sm:items-center">
+      <button type="button" onClick={deleteCart} className="absolute right-2 top-2 rounded-full p-2 text-xl text-red-500 hover:bg-red-50" aria-label={`Xóa ${name}`}>
+        <MdDeleteForever />
+      </button>
+      <img className="aspect-square w-full rounded-xl object-cover sm:w-[120px]" src={image} alt={name} loading="lazy" />
+      <div className="min-w-0 pr-8 sm:pr-0">
+        <h3 className="font-bold text-slate-900">{name}</h3>
+        <p className="mt-1 line-clamp-2 text-sm text-slate-500">{decription}</p>
+        <div className="mt-2 font-semibold text-slate-700">{price.toLocaleString("vi-VN")} ₫</div>
+      </div>
+      <div className="flex items-center justify-between gap-3 sm:flex-col sm:items-end">
+        <strong className="whitespace-nowrap text-red-600">{(price * quant).toLocaleString("vi-VN")} ₫</strong>
           <MyCount
             proId={proId}
             valueP={quant}
             width={25}
             onChange={setQuant}
           />
-        </Row>
-      </Col>
-    </Row>
+      </div>
+    </article>
   );
 };
 

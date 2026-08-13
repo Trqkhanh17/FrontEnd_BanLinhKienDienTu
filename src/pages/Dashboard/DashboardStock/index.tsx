@@ -16,7 +16,7 @@ const StockDas = () => {
     const [stock_import, SetStockImport] = useState("");
     useEffect(() => {
         getAllStock();
-    }, [data]);
+    }, []);
     const staffId = useAppSelector((state) => state.profile.dataProfile?.staff_id);
     const getAllStock = async () => {
         const res = await getListStock();
@@ -55,8 +55,10 @@ const StockDas = () => {
     };
     return (
         <LayoutDash>
+            <div className="panel min-w-0 overflow-hidden">
+            <div className="mb-5"><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Quản lý</p><h1 className="dashboard-title !mb-0">Kho hàng</h1></div>
             {showForm && (
-                <Form onSubmit={(e) => { importStock(e) }}>
+                <Form className="mb-5 max-w-xl rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={(e) => { importStock(e) }}>
                     <Form.Group>
                         <Form.Label> Mã Kho</Form.Label>
                         <Form.Control value={stock_id} type="text" disabled />
@@ -69,7 +71,7 @@ const StockDas = () => {
                         <Form.Label>So Luong</Form.Label>
                         <Form.Control value={stock_import} type="number" onChange={(e) => SetStockImport(e.target.value)} />
                     </Form.Group>
-                    <Button type="submit">Thêm</Button>
+                    <Button className="mt-3" type="submit">Thêm</Button>
                 </Form>
             )}
             {!data ? (<h1>Loading....</h1>)
@@ -90,7 +92,7 @@ const StockDas = () => {
                         </thead>
                         <tbody>
                             {data.map((item: any) => (
-                                <tr>
+                                <tr key={item.stock_id}>
                                     <td>{item.stock_id}</td>
                                     <td>{item.staff_id ? item.staff_id : "Không có dữ liệu"}</td>
                                     <td>{item.pro_id}</td>
@@ -103,7 +105,7 @@ const StockDas = () => {
                             ))}
                         </tbody>
                     </DataTable>
-                )}
+                )}</div>
         </LayoutDash>
     )
 }

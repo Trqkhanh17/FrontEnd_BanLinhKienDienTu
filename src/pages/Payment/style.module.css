@@ -1,69 +1,12 @@
-.BoxPayment {
-    min-width: 320px;
-    min-height: 100vh;
-    background-color: #ffffff;
-
-    .boxContent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .paymentLeft {
-        min-height: 100vh;
-        background-color: #ffffff;
-        border-right: 1px solid rgb(232, 232, 232);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .paymentRight {
-        min-height: 100vh;
-        background-color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width:760px) {
-    .boxContent {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-}
-
-.boxPR {
-    .boxProPayment {
-        overflow-y: auto;
-        padding: 10px;
-        height: 350px;
-
-        .imagePR {
-            border-radius: 5px;
-            width: 80%;
-            border: 1px solid rgb(236, 236, 236);
-        }
-
-        .descriptionPR {
-            font-weight: 500;
-        }
-
-        .quantityP {
-            position: absolute;
-            color: white;
-            background-color: #cfab68;
-            padding: 1px 9px;
-            border-radius: 100%;
-            top: -5%;
-            right: 17%;
-        }
-    }
-
-}
-
-.boxForm {
-    overflow-y: auto;
-    height: 450px;
-}
+.BoxPayment { @apply min-h-screen min-w-[320px] bg-slate-50; }
+.boxContent { @apply mx-auto flex max-w-7xl flex-col-reverse items-stretch justify-center lg:flex-row; }
+.paymentLeft { @apply flex min-h-0 items-center justify-center border-t border-slate-200 bg-white p-4 sm:p-8 lg:min-h-screen lg:border-r lg:border-t-0; }
+.paymentRight { @apply flex min-h-0 items-center justify-center bg-slate-50 p-4 sm:p-8 lg:min-h-screen; }
+.BoxDeliveryInformation { @apply w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6; }
+.titleNameShop { @apply mb-5 text-2xl font-extrabold text-brand-700 sm:text-3xl; }
+.boxForm { @apply h-auto max-h-none overflow-visible lg:max-h-[520px] lg:overflow-y-auto lg:pr-2; }
+.boxPR { @apply w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6; }
+.boxProPayment { @apply h-auto max-h-[50vh] overflow-y-auto p-1 lg:max-h-[520px]; }
+.imagePR { @apply aspect-square w-full rounded-lg border border-slate-200 object-cover; }
+.descriptionPR { @apply break-words font-medium text-slate-800; }
+.quantityP { @apply absolute -right-1 -top-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-brand-700 px-1 text-xs font-bold text-white; }

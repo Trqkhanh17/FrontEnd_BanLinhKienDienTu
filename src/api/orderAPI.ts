@@ -20,11 +20,11 @@ export const listOrderByIdAPI = async (cusId:string) => {
     const res: AxiosResponse = await apiClient.get(`/order/${cusId}`);
     return res;
 };
-export const rejectedOrderAPI = async (data:any)=>{
-    const res: AxiosResponse = await apiClient.put("/order/delete",data);
+export const rejectedOrderAPI = async (orderId: { order_id: string | number })=>{
+    const res: AxiosResponse = await apiClient.put("/order/delete",orderId);
     return res;
 }
-export const restoreOrderAPI = async (data:any)=>{
+export const restoreOrderAPI = async (data: { order_id: string | number })=>{
     const res: AxiosResponse = await apiClient.put("/order/undelete",data);
     return res;
 }

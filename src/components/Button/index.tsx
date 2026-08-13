@@ -1,31 +1,14 @@
-import { Button } from "react-bootstrap";
-import style from "./style.module.css";
 interface Props {
-  size?: "sm" | "lg" | undefined;
+  size?: "sm" | "lg";
   color?: string;
   title?: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
   className?: string;
   onClick?: () => void;
 }
-const ButtonCustomize: React.FC<Props> = ({
-  color,
-  size,
-  title,
-  type,
-  className,
-  onClick,
-}) => {
-  return (
-    <Button
-      className={`${className} ${style.button}`}
-      color={color}
-      type={type}
-      size={size}
-      onClick={() => onClick && onClick()}
-    >
-      {title}
-    </Button>
-  );
-};
+
+const ButtonCustomize: React.FC<Props> = ({ title, type = "button", className = "", onClick }) => (
+  <button className={`primary-button ${className}`} type={type} onClick={onClick}>{title}</button>
+);
+
 export default ButtonCustomize;

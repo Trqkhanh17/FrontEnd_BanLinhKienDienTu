@@ -1,29 +1,22 @@
-import { Container, Row } from "react-bootstrap";
 import Header from "./Header";
 import Footer from "./Footer";
-import style from "./styles.module.css";
 import { useAppDispatch } from "../../hooks";
 import { handleMenuBar } from "../../redux/features/menuBarSlice";
+
 interface Props {
   children: React.ReactNode;
 }
+
 const Layout: React.FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
   return (
-    <Container fluid className={style.containerLayout}>
-      <Row className={style.header}>
-        <Header />
-      </Row>
-      <Row
-        onClick={() => dispatch(handleMenuBar(false))}
-        className={style.main}
-      >
+    <div className="flex min-h-screen min-w-[320px] flex-col bg-slate-50">
+      <Header />
+      <main className="min-w-0 flex-1" onClick={() => dispatch(handleMenuBar(false))}>
         {children}
-      </Row>
-      <Row className={style.footer}>
-        <Footer />
-      </Row>
-    </Container>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

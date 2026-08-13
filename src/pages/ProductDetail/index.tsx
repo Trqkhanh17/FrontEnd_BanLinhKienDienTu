@@ -1,4 +1,3 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import MySwiper from "../../components/Swiper";
 import ButtonCustomize from "../../components/Button";
@@ -11,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getSession, setSession } from "../../utils";
 import { YourCart } from "../../interfaces/cartInterface";
 import { addCartToStore } from "../../redux/features/cartSlice";
-import style from "./style.module.css";
 
 const ProductDetail = () => {
   const user = useAppSelector((state) => state.profile.dataProfile);
@@ -102,83 +100,40 @@ const ProductDetail = () => {
   return (
     <Layout>
       {data ? (
-        <Container fluid className="mt-3 mb-3">
-          <Row>
-            <Col md={7}>
-              <Row className="mt-3 mb-3 justify-content-center">
-                <Image className="w-75" fluid src={data?.image} />
-              </Row>
-              <Row
-                style={{
-                  position: "relative",
-                  margin: "20px 50px",
-                  background: "background: #bdc3c7",
-                }}
-              >
-                <MySwiper
-                  data={data ? data.gallery : []}
-                  loop={true}
-                  slidesPerView={4}
-                  spaceBetween={10}
-                />
-              </Row>
-            </Col>
-            <Col md={5} className="">
-              <Row>
-                <h1>{data?.pro_name}</h1>
-              </Row>
-              <Row>
-                <h3 className="text-danger">
-                  <strong>{data?.price} vnd</strong>
-                </h3>
-              </Row>
-              <Row className="mt-3">
-                <h4>Số lượng: {data.quantity}</h4>
-              </Row>
-              <Row className="mt-3">
-                <h5>Hãng: {data?.pro_brand}</h5>
-              </Row>
-              <Row className="mt-3">
-                <h5>Xuất xứ: {data?.pro_origin}</h5>
-              </Row>
-              <Row className="mt-3 mb-3">
-                <h5>Mô tả: {data?.pro_description}</h5>
-              </Row>
-              <Container className={style.containerCount}>
-                <Row className="w-50">
-                  <Col
-                    className={style.boxDes}
-                    onClick={() => setQuantity((state) => state - 1)}
-                  >
-                    -
-                  </Col>
-                  <Col className={`${style.boxValue}`}>
-                    <input
-                      className={style.inputValue}
-                      type="number"
-                      onChange={(e) => handleSetValue(e)}
-                      value={quantity}
-                    />
-                  </Col>
-                  <Col
-                    className={style.boxInc}
-                    onClick={() => setQuantity((state) => state + 1)}
-                  >
-                    +
-                  </Col>
-                </Row>
-              </Container>
-              <Row className="mt-3 w-50">
-                <ButtonCustomize
-                  size="lg"
-                  title="Thêm vào giỏ hàng"
-                  onClick={() => handleOnClick()}
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      ) : null}
+        <div className="page-shell">
+          <div className="grid gap-8 rounded-2xl bg-white p-4 shadow-soft sm:p-6 lg:grid-cols-2 lg:gap-12 lg:p-10">
+            <section className="min-w-0">
+              <div className="aspect-square overflow-hidden rounded-2xl bg-slate-100">
+                <img className="h-full w-full object-contain p-4" src={data.image || data.pro_img} alt={data.pro_name} />
+              </div>
+              {!!data.gallery?.length && (
+                <div className="relative mt-4 overflow-hidden rounded-xl bg-slate-200 p-2 sm:mt-6 sm:p-4">
+                  <MySwiper data={data.gallery} loop slidesPerView={4} spaceBetween={10} />
+                </div>
+              )}
+            </section>
+            <section className="flex min-w-0 flex-col justify-center">
+              <span className="text-sm font-bold uppercase tracking-widest text-brand-600">Chi tiết sản phẩm</span>
+              <h1 className="mt-2 text-2xl font-extrabold text-slate-900 sm:text-4xl">{data.pro_name}</h1>
+              <strong className="mt-4 text-2xl text-red-600 sm:text-3xl">{data.price.toLocaleString("vi-VN")} ₫</strong>
+              <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 border-y border-slate-200 py-5 text-sm sm:text-base">
+                <dt className="font-semibold text-slate-500">Tồn kho</dt><dd>{data.quantity}</dd>
+                <dt className="font-semibold text-slate-500">Hãng</dt><dd>{data.pro_brand}</dd>
+                <dt className="font-semibold text-slate-500">Xuất xứ</dt><dd>{data.pro_origin}</dd>
+                <dt className="font-semibold text-slate-500">Mô tả</dt><dd className="min-w-0 break-words">{data.pro_description}</dd>
+              </dl>
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="inline-flex h-11 w-fit overflow-hidden rounded-lg border border-slate-300">
+                  <button type="button" className="w-11 bg-slate-100 text-xl hover:bg-slate-200" onClick={() => setQuantity((state) => Math.max(1, state - 1))}>−</button>
+                  <input className="w-14 border-x border-slate-300 text-center outline-none" type="number" min="1" onChange={handleSetValue} value={quantity} aria-label="Số lượng" />
+                  <button type="button" className="w-11 bg-slate-100 text-xl hover:bg-slate-200" onClick={() => setQuantity((state) => state + 1)}>+</button>
+                </div>
+                <ButtonCustomize className="w-full sm:w-auto" size="lg" title="Thêm vào giỏ hàng" onClick={handleOnClick} />
+              </div>
+            </section>
+          </div>
+        </div>
+      ) : <div className="page-shell text-center text-slate-500">Đang tải sản phẩm...</div>}
     </Layout>
   );
 };

@@ -168,12 +168,13 @@ const Statistics = () => {
     };
     return (
         <LayoutDash>
+          <div className="panel min-w-0 overflow-hidden">
             {/* <div>
                 <input type="date" value={date.toString()} onChange={(e) => { setDate(formatDate(e.target.value).toString()), getDailyStats() }} />
             </div> */}
-            <h2>Thống kê Tổng Quan</h2>
+            <div className="mb-5"><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Báo cáo</p><h1 className="dashboard-title !mb-0">Thống kê tổng quan</h1></div>
             {dataOverallStats.Đã_Thanh_Toán ? (
-                <Bar data={chartDataOverallStats} options={options} />
+                <div className="relative min-h-[280px] w-full sm:min-h-[420px]"><Bar data={chartDataOverallStats} options={{ ...options, maintainAspectRatio: false }} /></div>
             ) : (
                 <p>Loading...</p>
             )}
@@ -198,6 +199,7 @@ const Statistics = () => {
             ) : (
                 <p>Loading...</p>
             )} */}
+          </div>
         </LayoutDash>
     );
 };

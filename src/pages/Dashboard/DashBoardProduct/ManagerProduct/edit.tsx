@@ -5,9 +5,10 @@ import Form from "react-bootstrap/Form";
 import { getProductByIDAPI, updateProductAPI } from "../../../../api/productAPI";
 import { listCategoryAPI } from "../../../../api/categoryAPI";
 import { toast } from "react-toastify";
+import LayoutDash from "../../Layout";
 
 interface Category {
-  cate_id: string;
+  cate_id: string | number;
   cate_name: string;
 }
 
@@ -77,7 +78,8 @@ function EditCustomize() {
   };
 
   return (
-    <Form style={{ width: "50%", margin: "auto", marginTop: "50px" }} onSubmit={handleSubmit}>
+    <LayoutDash><Form className="panel mx-auto w-full max-w-2xl" onSubmit={handleSubmit}>
+      <h1 className="dashboard-title">Cập nhật sản phẩm</h1>
       <Form.Label>Loại Sản Phẩm</Form.Label>
       <Form.Select aria-label="Default select example" value={cateId} onChange={(e) => setCateId(e.target.value)}>
         {dataCate.map((item) => (
@@ -114,7 +116,7 @@ function EditCustomize() {
       <Button variant="primary" type="submit">
         Cập nhật
       </Button>
-    </Form>
+    </Form></LayoutDash>
   );
 }
 

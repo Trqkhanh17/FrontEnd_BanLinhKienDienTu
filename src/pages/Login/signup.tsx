@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import { Register, registerAPI } from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../utils";
+
+const fieldClass = "form-field";
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,118 +17,34 @@ const SignUpForm = () => {
 
   const handleOnSubmit = async () => {
     try {
-      if (
-        email === "" ||
-        password === "" ||
-        confirmPass === "" ||
-        name === "" ||
-        phone === "" ||
-        birthday === "" ||
-        address === ""
-      ) {
-        return toast.warning("Missing required field!!!");
-      }
-
-      if (password !== confirmPass) {
-        return toast.warning("Password do not match confirm!!!");
-      }
-
-      const data: Register = {
-        acc_email: email,
-        password: password,
-        cus_name: name,
-        cus_address: address,
-        cus_phone: phone,
-        cus_birthday: birthday,
-      };
+      if (!email || !password || !confirmPass || !name || !phone || !birthday || !address) return toast.warning("Vui lòng nhập đầy đủ thông tin");
+      if (password !== confirmPass) return toast.warning("Mật khẩu xác nhận không khớp");
+      const data: Register = { acc_email: email, password, cus_name: name, cus_address: address, cus_phone: phone, cus_birthday: birthday };
       const res = await registerAPI(data);
-      if (res.data.statusCode === 400) {
-        return toast.error(res.data.message);
-      }
-      if (res.data.statusCode === 404) {
-        return toast.error(res.data.message);
-      }
-      if (res.data.statusCode === 405)
-        toast.success(res.data.message);
-      if (res.data.statusCode === 401) {
-        return toast.warning(res.data.message);
-      }
-      if (res.data.statusCode === 402) {
-        return toast.warning(res.data.message);
-      }
-      if (res.data.statusCode === 403) {
-        return toast.warning(res.data.message);
-      }
-      if (res.data.token) {
-        setCookie("token", res.data.token, 7);
-      }
+      if ([400, 401, 402, 403, 404].includes(res.data.statusCode)) return toast.warning(res.data.message);
+      const token = res.data.token || res.data.accessToken || res.data.access_token || res.data.data?.token;
+      if (token) setCookie("token", token, 7);
+      toast.success(res.data.message || "Đăng ký thành công");
       return navigate("/");
     } catch (error) {
-      return toast.error("Register fails" + error);
+      return toast.error("Đăng ký thất bại: " + error);
     }
   };
 
   return (
-    <div className="form-container sign-up-container">
-      <form>
-        <h1>Tạo Mới Tài Khoản</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>hoặc bằng cách khác</span>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <input
-          type="password"
-          value={confirmPass}
-          onChange={(e) => setConfirmPass(e.target.value)}
-          placeholder="Confirm Password"
-        />
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-        />
-        <input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone"
-        />
-        <input
-          type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-          placeholder="Birthday"
-        />
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Address"
-        />
-        <button onClick={() => handleOnSubmit()} type="button">Đăng Kí</button>
-      </form>
-    </div>
+    <form className="space-y-4" onSubmit={(event) => { event.preventDefault(); handleOnSubmit(); }}>
+      <div><span className="text-sm font-bold uppercase tracking-widest text-brand-600">Thành viên mới</span><h2 className="mt-2 text-2xl font-extrabold text-slate-900 sm:text-3xl">Tạo tài khoản</h2></div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <input className={`${fieldClass} sm:col-span-2`} type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input className={fieldClass} type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật khẩu" />
+        <input className={fieldClass} type="password" autoComplete="new-password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} placeholder="Xác nhận mật khẩu" />
+        <input className={fieldClass} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ tên" />
+        <input className={fieldClass} type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" />
+        <input className={fieldClass} type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} aria-label="Ngày sinh" />
+        <input className={fieldClass} type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Địa chỉ" />
+      </div>
+      <button className="primary-button w-full" type="submit">Đăng ký</button>
+    </form>
   );
 };
 

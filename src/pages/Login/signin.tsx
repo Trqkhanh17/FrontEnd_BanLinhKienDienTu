@@ -2,83 +2,46 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { loginAPI } from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks";
+import { fetchGetProfile } from "../../redux/features/profileSlice";
 import { setCookie } from "../../utils";
+
 function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleKeyDown = (event: any) => {
-    if (event.key === 'Enter') {
-      handleOnSubmit();
-    }
-  };
   const handleOnSubmit = async () => {
     try {
-      if (email === "" || password === "") {
-        return toast.warning("Missing field email or password");
-      }
+      if (!email || !password) return toast.warning("Vui lòng nhập email và mật khẩu");
       const res = await loginAPI(email, password);
-      if (res.data.statusCode === 404) {
-        return toast.error(`${res.data.message}`);
-      }
-
-      if (res.data.statusCode === 403) {
-        return toast.error(`${res.data.message}`);
-      }
-      if (res.data.statusCode === 401) {
-        return toast.error(`${res.data.message}`);
-      }
-      if (res.data.token) {
-        setCookie("token", res.data.token, 7);
-      }
-      toast.success("Login successfully");
-      if (res.data.role === 1) {
-        return navigate("/dashboard");
-      }
-
-      return navigate("/");
+      if (res.data.statusCode !== 200 || [400, 401, 403, 404].includes(res.data.statusCode)) return toast.error(`${res.data.message || "Thông tin đăng nhập không hợp lệ"}`);
+      const token = res.data.token || res.data.accessToken || res.data.access_token || res.data.data?.token;
+      if (token) setCookie("token", token, 7);
+      await dispatch(fetchGetProfile());
+      toast.success("Đăng nhập thành công");
+      return navigate(res.data.role === 1 ? "/dashboard" : "/");
     } catch (error) {
-      return toast.error("Login Fails " + error);
+      return toast.error("Đăng nhập thất bại: " + error);
     }
   };
 
   return (
-    <div className="form-container sign-in-container">
-      <form>
-        <h1>Đăng Nhập</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>hoặc đăng nhập bằng cách khác</span>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onKeyDown={handleKeyDown}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onKeyDown={handleKeyDown}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <a href="#">Bạn đã quên mật khẩu?</a>
-        <button type="button" onClick={() => handleOnSubmit()}>
-          Đăng Nhập
-        </button>
-      </form>
-    </div>
+    <form className="space-y-5" onSubmit={(event) => { event.preventDefault(); handleOnSubmit(); }}>
+      <div>
+        <span className="text-sm font-bold uppercase tracking-widest text-brand-600">Tài khoản</span>
+        <h2 className="mt-2 text-3xl font-extrabold text-slate-900">Đăng nhập</h2>
+      </div>
+      <label className="block text-sm font-semibold text-slate-700">Email
+        <input className="form-field mt-2" type="email" autoComplete="email" placeholder="email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </label>
+      <label className="block text-sm font-semibold text-slate-700">Mật khẩu
+        <input className="form-field mt-2" type="password" autoComplete="current-password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </label>
+      <button className="block w-full text-right text-sm font-semibold text-brand-700 hover:underline" type="button">Bạn đã quên mật khẩu?</button>
+      <button className="primary-button w-full" type="submit">Đăng nhập</button>
+    </form>
   );
 }
 
