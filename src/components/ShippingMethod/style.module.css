@@ -1,3 +1,1 @@
-.boxChoose {
-    cursor: pointer;
-}
+.boxChoose { @apply cursor-pointer rounded-xl transition hover:border-brand-500 hover:bg-brand-50; }

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 DataTable.use(DT);
 const StaffDashboard = () => {
     const [data, Setdata] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [staffName, SetStaffName] = useState("")
     const [staffPhone, SetStaffPhone] = useState("")
@@ -27,8 +28,14 @@ const StaffDashboard = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
     const getAllOrder = async () => {
-        const res = await getAllStaff();
-        Setdata(res.data.data);
+        try {
+            const res = await getAllStaff();
+            Setdata(res.data.data || []);
+        } catch {
+            toast.error("Không thể tải danh sách nhân viên");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSubmitCreate = async (event: any) => {
@@ -65,7 +72,8 @@ const StaffDashboard = () => {
     };
     return (
         <LayoutDash>
-            <h1>Quản Lý Nhân Viên</h1>
+          <div className="panel min-w-0 overflow-hidden">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Quản lý</p><h1 className="dashboard-title !mb-0">Nhân viên</h1></div>
             {!showForm ? (<Button
                 className="btn btn-primary"
                 onClick={() => setShowForm(true)}
@@ -81,9 +89,9 @@ const StaffDashboard = () => {
                     >
                         Đóng
                     </Button>
-                )}
+                )}</div>
             {showForm && (
-                <Form onSubmit={handleSubmitCreate}>
+                <Form className="mb-6 grid gap-x-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2" onSubmit={handleSubmitCreate}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Tên Nhân Viên</Form.Label>
                         <Form.Control type="text" placeholder="Nhập tên nhân viên" value={staffName} onChange={(e: any) => SetStaffName(e.target.value)} />
@@ -96,26 +104,28 @@ const StaffDashboard = () => {
                         <Form.Label>Số Điện Thoại</Form.Label>
                         <Form.Control type="text" placeholder="Nhập số điện thoại" value={staffPhone} onChange={(e: any) => SetStaffPhone(e.target.value)} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassw  ord">
+                    <Form.Group className="mb-3" controlId="formStaffPassword">
                         <Form.Label>Nhập Mật Khẩu</Form.Label>
                         <Form.Control type={showPassword ? 'text' : 'password'} placeholder="Nhập mật khẩu" value={password} onChange={(e: any) => SetPassword(e.target.value)} />
-                        <Button variant="secondary" onClick={handleTogglePassword}>
+                        <Button className="mt-2" type="button" variant="secondary" onClick={handleTogglePassword}>
                             {showPassword ? 'Ẩn' : 'Hiện'}
                         </Button>
-                    </Form.Group><Form.Group className="mb-3" controlId="formBasicPassword">
+                    </Form.Group><Form.Group className="mb-3" controlId="formStaffPasswordConfirm">
                         <Form.Label>Nhập Lại Mật Khẩu</Form.Label>
                         <Form.Control type={showConfirmPassword ? 'text' : 'password'} placeholder="Nhập lại mật khẩu" value={comfirmPassword} onChange={(e: any) => SetComfirmPassword(e.target.value)} />
-                        <Button variant="secondary" onClick={handleToggleConfirmPassword}>
+                        <Button className="mt-2" type="button" variant="secondary" onClick={handleToggleConfirmPassword}>
                             {showConfirmPassword ? 'Ẩn' : 'Hiện'}
                         </Button>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button className="w-full sm:col-span-2 sm:w-auto" variant="primary" type="submit">
+                        Thêm nhân viên
                     </Button>
                 </Form>
             )}
-            {!data || data.length === 0 ? (
-                <h1>Loading...</h1>
+            {loading ? (
+                <p className="py-8 text-center text-slate-500">Đang tải nhân viên...</p>
+            ) : data.length === 0 ? (
+                <p className="py-8 text-center text-slate-500">Chưa có nhân viên.</p>
             ) : (
                 <DataTable options={{ lengthMenu: [10, 15, 20], pageLength: 10 }}>
                     <thead>
@@ -137,7 +147,7 @@ const StaffDashboard = () => {
                         ))}
                     </tbody>
                 </DataTable>
-            )}
+            )}</div>
         </LayoutDash>
     );
 };

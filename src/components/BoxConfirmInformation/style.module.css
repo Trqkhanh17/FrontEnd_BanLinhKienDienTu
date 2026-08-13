@@ -1,6 +1,2 @@
-.BoxDeliveryInformation {
-    .titleNameShop {
-        font-size: 30px;
-    }
-
-}
+.BoxDeliveryInformation { @apply w-full rounded-2xl bg-white p-4 sm:p-6; }
+.titleNameShop { @apply text-2xl font-extrabold text-brand-700 sm:text-3xl; }

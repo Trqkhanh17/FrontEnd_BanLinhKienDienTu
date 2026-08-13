@@ -1,82 +1,39 @@
-import { Col, Container, Row } from "react-bootstrap";
-import style from "./style.module.css";
 import { NavLink } from "react-router-dom";
-import { FaFacebook } from "react-icons/fa6";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaYoutube } from "react-icons/fa6";
-import { FaTwitterSquare } from "react-icons/fa";
-import { CgCopyright } from "react-icons/cg";
-import { FaArrowRightLong } from "react-icons/fa6";
-const Footer = () => {
-  return (
-    <Container fluid className={`${style.containerFooter}`}>
-      <Row className={`${style.introductFooter}`}>
-        <Col md={4} className={`${style.intro}`}>
-          <Row>
-            <Col>
-              <h5>TECH SHOP</h5>
-            </Col>
-          </Row>
-          <Row className={`${style.boxParaghap}`}>
-            <Col>
-              <p>
-                Tech Shop là cửa hàng chuyên về linh kiện điện tử chất lượng cao, phục vụ cho các kỹ sư, nhà phát minh và những người đam mê công nghệ.</p>
-            </Col>
-          </Row>
-          <Row className="mb-4">
-            <Col>
-              <NavLink className={style.readMore} to={"/about"}>
-                read more <FaArrowRightLong />
-              </NavLink>
-            </Col>
-          </Row>
-        </Col>
+import { FaArrowRightLong, FaLocationDot, FaPhone } from "react-icons/fa6";
 
-        <Col md={8} className={`${style.social}`}>
-          <Row>
-            <Col className="d-flex gap-2">
-              <h5>Team:</h5>
-              <span>Quốc Khánh</span>
-              <span>Đăng Khôi</span>
-            </Col>
-          </Row>
-          <Row className="mt-1">
-            <Col className="d-flex  gap-2">
-              <h5>Address:</h5>
-              <p>
-                600 Nguyễn Văn Cừ Nối Dài, An Bình, Ninh Kiều, Cần Thơ 900000,
-                Vietnam
-              </p>
-            </Col>
-          </Row>
-          <Row className="mt-1">
-            <Col className="d-flex gap-2">
-              <h5>Phone:</h5>
-              <p>0394551401</p>
-            </Col>
-          </Row>
-          <Row className="mt-1">
-            <Col className="d-flex gap-2 align-items-center">
-              <h5>Social:</h5>
-              <FaFacebook className={style.iconSocial} />
-              <AiFillInstagram className={style.iconSocial} />
-              <FaYoutube className={style.iconSocial} />
-              <FaTwitterSquare className={style.iconSocial} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+const currentYear = new Date().getFullYear();
 
-      <Row className="mt-4">
-        <Col>
-          <p>
-            Copyright <CgCopyright />
-            2024 by Quốc Khánh & Đăng Khôi. All rights reserved.
+const Footer = () => (
+  <footer className="bg-slate-950 text-slate-400">
+    <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+      <div className="grid gap-10 md:grid-cols-5 lg:gap-16">
+        <section className="md:col-span-2">
+          <h2 className="text-xl font-extrabold tracking-wide text-white">TECH SHOP</h2>
+          <p className="mt-4 max-w-md text-sm leading-7">
+            Tech Shop cung cấp linh kiện điện tử chất lượng cao dành cho kỹ sư, nhà phát triển sản phẩm, doanh nghiệp và cộng đồng yêu công nghệ.
           </p>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+          <NavLink className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-amber-400 !no-underline transition hover:text-amber-300" to="/about">
+            Tìm hiểu về Tech Shop <FaArrowRightLong />
+          </NavLink>
+        </section>
+        <section className="space-y-4 text-sm md:col-span-3">
+          <h2 className="text-base font-bold uppercase tracking-wider text-white">Thông tin liên hệ</h2>
+          <div className="flex items-start gap-3">
+            <FaLocationDot className="mt-1 shrink-0 text-amber-400" />
+            <div><strong className="block text-white">Địa chỉ cửa hàng</strong><span className="mt-1 block leading-6">600 Nguyễn Văn Cừ Nối Dài, An Bình, Ninh Kiều, Cần Thơ</span></div>
+          </div>
+          <div className="flex items-start gap-3">
+            <FaPhone className="mt-1 shrink-0 text-amber-400" />
+            <div><strong className="block text-white">Hỗ trợ khách hàng</strong><a href="tel:0394551401" className="mt-1 block !no-underline transition hover:text-white">0394 551 401</a></div>
+          </div>
+          <p className="border-l-2 border-amber-400 pl-3 text-xs leading-6">Tech Shop được phát triển và vận hành bởi Quốc Khánh.</p>
+        </section>
+      </div>
+      <div className="mt-10 border-t border-slate-800 pt-6 text-center text-xs sm:text-left sm:text-sm">
+        <span>© {currentYear} Quốc Khánh. Bảo lưu mọi quyền.</span>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

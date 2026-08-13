@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { toast } from "react-toastify";
 import { getDailyStatsAPI } from "../../../api/statisticsAPI";
+import { API_BASE_URL } from "../../../hooks/apiClient";
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -55,7 +56,7 @@ const Statistics = () => {
 
     const getOverallStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-overall");
+            const response = await fetch(`${API_BASE_URL}/stats-overall`);
             const result = await response.json();
             if (result && result.data) {
                 setData(result.data);
@@ -83,7 +84,7 @@ const Statistics = () => {
     };
     const getMonthlyStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-monthly");
+            const response = await fetch(`${API_BASE_URL}/stats-monthly`);
             const result = await response.json();
             if (result && result.data) {
                 setDataMonthlyStats(result.data);
@@ -97,7 +98,7 @@ const Statistics = () => {
     };
     const getYearlyStats = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/stats-yearly");
+            const response = await fetch(`${API_BASE_URL}/stats-yearly`);
             const result = await response.json();
             if (result && result.data) {
                 setDataYearlyStats(result.data);
@@ -170,12 +171,13 @@ const Statistics = () => {
     };
     return (
         <LayoutDash>
+          <div className="panel min-w-0 overflow-hidden">
             {/* <div>
                 <input type="date" value={date.toString()} onChange={(e) => { setDate(formatDate(e.target.value).toString()), getDailyStats() }} />
             </div> */}
-            <h2>Thống kê Tổng Quan</h2>
+            <div className="mb-5"><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Báo cáo</p><h1 className="dashboard-title !mb-0">Thống kê tổng quan</h1></div>
             {dataOverallStats.Đã_Thanh_Toán ? (
-                <Bar data={chartDataOverallStats} options={options} />
+                <div className="relative min-h-[280px] w-full sm:min-h-[420px]"><Bar data={chartDataOverallStats} options={{ ...options, maintainAspectRatio: false }} /></div>
             ) : (
                 <p>Loading...</p>
             )}
@@ -200,6 +202,7 @@ const Statistics = () => {
             ) : (
                 <p>Loading...</p>
             )} */}
+          </div>
         </LayoutDash>
     );
 };

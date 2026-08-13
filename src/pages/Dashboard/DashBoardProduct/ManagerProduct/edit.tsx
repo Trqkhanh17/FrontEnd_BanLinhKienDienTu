@@ -5,18 +5,24 @@ import Form from "react-bootstrap/Form";
 import { getProductByIDAPI, updateProductAPI } from "../../../../api/productAPI";
 import { listCategoryAPI } from "../../../../api/categoryAPI";
 import { toast } from "react-toastify";
+import LayoutDash from "../../Layout";
+
+interface CategoryOption {
+  cate_id: number;
+  cate_name: string;
+}
 
 function EditCustomize() {
   const { proId } = useParams();
   const navigate = useNavigate();
-  const [dataCate, setDataCate] = useState([]);
+  const [dataCate, setDataCate] = useState<CategoryOption[]>([]);
   const [proName, setProName] = useState("");
   const [cateId, setCateId] = useState("");
   const [price, setPrice] = useState("");
   const [proBrand, setBrand] = useState("");
   const [proDescription, setDescription] = useState("");
   const [proOrigin, setOrigin] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!proId) {
@@ -72,7 +78,8 @@ function EditCustomize() {
   };
 
   return (
-    <Form style={{ width: "50%", margin: "auto", marginTop: "50px" }} onSubmit={handleSubmit}>
+    <LayoutDash><Form className="panel mx-auto w-full max-w-2xl" onSubmit={handleSubmit}>
+      <h1 className="dashboard-title">Cập nhật sản phẩm</h1>
       <Form.Label>Loại Sản Phẩm</Form.Label>
       <Form.Select aria-label="Default select example" value={cateId} onChange={(e) => setCateId(e.target.value)}>
         {dataCate.map((item) => (
@@ -109,7 +116,7 @@ function EditCustomize() {
       <Button variant="primary" type="submit">
         Cập nhật
       </Button>
-    </Form>
+    </Form></LayoutDash>
   );
 }
 

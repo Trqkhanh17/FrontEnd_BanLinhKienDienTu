@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../hooks/apiClient";
-import exp from "constants";
 
 export const listCategoryAPI = async () => {
   const res: AxiosResponse = await apiClient.get(`/category/list-all`);

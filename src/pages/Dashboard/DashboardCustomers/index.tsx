@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import LayoutDash from '../Layout';
 import { bannedCustomerAPI, listCustomerAPI, unBannedCustomerAPI } from '../../../api/customerAPI';
 import { toast } from 'react-toastify';
-import "./dashboardCustomers.css"
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 interface Customer {
@@ -20,6 +19,7 @@ interface Customer {
 DataTable.use(DT);
 const CustomersDas = () => {
   const [data, setData] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllCustomers();
@@ -31,6 +31,8 @@ const CustomersDas = () => {
       setData(res.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log(data);
@@ -67,11 +69,14 @@ const CustomersDas = () => {
 
   return (
     <LayoutDash>
-      <div>
-        {!data || data.length === 0 ? (
-          <h1>Loading...</h1>
+      <div className="panel min-w-0 overflow-hidden">
+        <div className="mb-5"><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Quản lý</p><h1 className="dashboard-title !mb-0">Khách hàng</h1></div>
+        {loading ? (
+          <p className="py-8 text-center text-slate-500">Đang tải khách hàng...</p>
+        ) : data.length === 0 ? (
+          <p className="py-8 text-center text-slate-500">Chưa có khách hàng.</p>
         ) : (
-          <DataTable options={{ lengthMenu: [5] }}>
+          <DataTable className="table table-striped display" options={{ lengthMenu: [5] }}>
             <thead>
               <tr>
                 <th scope="col">Avatar</th>
@@ -91,7 +96,7 @@ const CustomersDas = () => {
                 <tr key={item.cus_id}>
                   <td>
                     <img
-                      style={{ height: "40px", width: "40px" }}
+                      className="h-10 w-10 rounded-full object-cover"
                       src={item.cus_avatar}
                       alt="Product image"
                     />
@@ -108,14 +113,14 @@ const CustomersDas = () => {
                     {
                       checkIsBanned(item.is_banned) ? (
                         <button
-                          className="btn btn-primary"
+                          className="primary-button !min-h-9 !px-3 !py-1 text-xs"
                           onClick={() => handleSubmitUnBanned(item.cus_email)}
                         >
                           Mở khóa tài khoản
                         </button>
                       ) : (
                         <button
-                          className="btn btn-ban"
+                          className="danger-button !min-h-9 !px-3 !py-1 text-xs"
                           onClick={() => handleSubmitBanned(item.cus_email)}
                         >
                           Khóa tài khoản

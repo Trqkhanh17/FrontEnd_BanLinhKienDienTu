@@ -1,33 +1,30 @@
-import { Image } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import style from "./style.module.css";
+import { Navigation, Pagination } from "swiper/modules";
+
 interface Props {
-  spaceBetween?: number;
-  slidesPerView?: number;
-  loop?: boolean;
   data: string[];
+  slidesPerView: number;
+  spaceBetween: number;
+  loop: boolean;
 }
-const MySwiper: React.FC<Props> = ({
-  loop,
-  slidesPerView,
-  spaceBetween,
-  data,
-}) => (
+
+const MySwiper: React.FC<Props> = ({ data, slidesPerView, spaceBetween, loop }) => (
   <Swiper
-    className={style.container}
-    spaceBetween={spaceBetween}
-    slidesPerView={slidesPerView} // Hiển thị 3 hình
+    modules={[Navigation, Pagination]}
+    navigation
+    pagination={{ clickable: true }}
     loop={loop}
-    autoplay={{ delay: 3000 }}
+    spaceBetween={spaceBetween}
+    slidesPerView={Math.min(2, slidesPerView)}
+    breakpoints={{ 480: { slidesPerView: Math.min(3, slidesPerView) }, 768: { slidesPerView } }}
+    className="rounded-lg bg-slate-200"
   >
-    {data &&
-      data.length > 0 &&
-      data.map((item, index) => (
-        <SwiperSlide key={index}>
-          <Image className={style.image} fluid src={item} />
-        </SwiperSlide>
-      ))}
+    {data?.map((item, index) => (
+      <SwiperSlide key={index}>
+        <img className="aspect-square w-full rounded-lg object-cover" src={item} alt={`Ảnh sản phẩm ${index + 1}`} loading="lazy" />
+      </SwiperSlide>
+    ))}
   </Swiper>
 );
 

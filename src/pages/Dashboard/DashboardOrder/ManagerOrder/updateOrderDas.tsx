@@ -65,7 +65,7 @@ const UpdateStatusDas = () => {
     return (
         <LayoutDash>
             <Form
-                style={{ width: "50%", margin: "auto", marginTop: "50px" }}
+                className="panel mx-auto mt-6 w-full max-w-2xl sm:mt-10"
             >
                 <Form.Group className="mb-3">
                     <Form.Label>Mã đơn hàng:</Form.Label>

@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import Layout from "../../components/Layout";
 import { useAppSelector } from "../../hooks";
 import { updateProfileAPI } from "../../api/customerAPI";
-import "./Profile.css"; // Import file CSS
+import fallbackAvatar from "../../assets/images/logo.jpg";
+import { API_BASE_URL } from "../../hooks/apiClient";
 
 const Profile = () => {
   const User = useAppSelector((state) => state.profile.dataProfile);
@@ -50,7 +51,7 @@ const Profile = () => {
       formData.append("file", selectedFile);
 
       try {
-        const response = await fetch("http://localhost:8000/api/v1/uploadfile", {
+        const response = await fetch(`${API_BASE_URL}/uploadfile`, {
           method: "POST",
           body: formData,
         });
@@ -93,76 +94,71 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="profile-container">
-        <h2 className="profile-title">Thông tin</h2>
-        <form onSubmit={handleFormSubmit}>
-          <div className="profile-form-group">
-            <label>Avatar</label>
-            <div className="profile-avatar">
-              <img src={user.avatar || "src/assets/images/logo.jpg"} alt="avatar" />
-            </div>
-            <label className="custom-file-upload">
+      <div className="page-shell">
+        <form className="panel mx-auto max-w-2xl space-y-5" onSubmit={handleFormSubmit}>
+          <div className="text-center"><span className="text-sm font-bold uppercase tracking-widest text-brand-600">Tài khoản</span><h1 className="mt-2 text-2xl font-extrabold sm:text-3xl">Thông tin cá nhân</h1></div>
+          <div className="flex flex-col items-center">
+            <img className="h-28 w-28 rounded-full border-4 border-brand-100 object-cover shadow-sm" src={user.avatar || fallbackAvatar} alt="Ảnh đại diện" />
+            <label className="mt-4 cursor-pointer rounded-lg bg-brand-50 px-4 py-2 text-sm font-bold text-brand-700 hover:bg-brand-100">
               <input
+                className="sr-only"
                 type="file"
                 name="avatar"
                 onChange={handleInputChange}
                 accept="image/*"
               />
-              Chọn ảnh
+              Chọn ảnh đại diện
             </label>
           </div>
-          <div className="profile-form-group">
-            <label>Email</label>
+          <div className="grid gap-5 sm:grid-cols-2">
+          <label className="text-sm font-semibold text-slate-700">Email
             <input
+              className="form-field mt-2"
               type="email"
               name="email"
               value={user.email}
               onChange={handleInputChange}
               placeholder="Email"
-            />
-          </div>
-          <div className="profile-form-group">
-            <label>Tên khách hàng</label>
+            /></label>
+          <label className="text-sm font-semibold text-slate-700">Tên khách hàng
             <input
+              className="form-field mt-2"
               type="text"
               name="name"
               value={user.name}
               onChange={handleInputChange}
               placeholder="Name"
-            />
-          </div>
-          <div className="profile-form-group">
-            <label>Số điện thoại</label>
+            /></label>
+          <label className="text-sm font-semibold text-slate-700">Số điện thoại
             <input
+              className="form-field mt-2"
               type="text"
               name="phone"
               value={user.phone}
               onChange={handleInputChange}
               placeholder="Phone"
-            />
-          </div>
-          <div className="profile-form-group">
-            <label>Ngày tháng năm sinh</label>
+            /></label>
+          <label className="text-sm font-semibold text-slate-700">Ngày sinh
             <input
+              className="form-field mt-2"
               type="date"
               name="birthday"
               value={user.birthday}
               onChange={handleInputChange}
               placeholder="Birthday"
-            />
-          </div>
-          <div className="profile-form-group">
-            <label>Địa chỉ</label>
+            /></label>
+          <label className="text-sm font-semibold text-slate-700 sm:col-span-2">Địa chỉ
             <input
+              className="form-field mt-2"
               type="text"
               name="address"
               value={user.address}
               onChange={handleInputChange}
               placeholder="Address"
-            />
+            /></label>
           </div>
-          <div className="profile-form-group">
-            <button type="submit">
+          <div>
+            <button className="primary-button w-full" type="submit">
               Cập nhật thông tin
             </button>
           </div>

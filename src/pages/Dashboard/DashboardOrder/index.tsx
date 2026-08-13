@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
-import './DashboardOrder.css';
 DataTable.use(DT);
 const OrderDas = () => {
     const navigate = useNavigate();
     const [data, Setdata] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         getAllOrder();
     }, [])
@@ -18,7 +18,9 @@ const OrderDas = () => {
             const res = await listOrderAPI();
             Setdata(res.data.data);
         } catch (error) {
-
+            toast.error("Không thể tải danh sách đơn hàng");
+        } finally {
+            setLoading(false);
         }
     }
     console.log(data);
@@ -77,8 +79,10 @@ const OrderDas = () => {
     return (
         <div>
             <LayoutDash>
-                <div style={{ width: "100%" }} >
-                    {!data || data.length === 0 ? (<h1>Loading....</h1>)
+                <div className="panel min-w-0 overflow-hidden">
+                    <div className="mb-5"><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Quản lý</p><h1 className="dashboard-title !mb-0">Đơn hàng</h1></div>
+                    {loading ? (<p className="py-8 text-center text-slate-500">Đang tải đơn hàng...</p>)
+                        : data.length === 0 ? (<p className="py-8 text-center text-slate-500">Chưa có đơn hàng.</p>)
                         : (
                             <DataTable
                                 className="table table-striped custom-datatable"
@@ -105,7 +109,7 @@ const OrderDas = () => {
                                 </thead>
                                 <tbody>
                                     {data.map((item: any) => (
-                                        <tr>
+                                        <tr key={item.order_id}>
                                             <td>{item.order_id}</td>
                                             <td>{item.pro_id}</td>
                                             <td>{item.detail_quantity}</td>
@@ -121,10 +125,10 @@ const OrderDas = () => {
                                             <td>{item.order_note}</td>
                                             <td>{formatDate(item.order_create.split("T")[0])}</td>
                                             <td>{item.order_update}</td>
-                                            <td style={{ display: "flex" }}>
+                                            <td><div className="flex gap-2">
                                                 <button className="btn btn-primary" onClick={() => navigate(`/edit-order/${item.order_id}`)}>Cập Nhật</button>
                                                 <button className="btn btn-danger" onClick={() => { handleSubmitReject(item.order_id) }}>Từ Chối</button>
-                                            </td>
+                                            </div></td>
                                         </tr>
                                     ))}
                                 </tbody>

@@ -1,28 +1,15 @@
-import { Image } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
-import style from "./style.module.css";
-interface Props {
-  data: string[];
-}
-const MyCarousel: React.FC<Props> = ({ data }) => {
-  return (
-    <Carousel>
-      {data &&
-        data.length > 0 &&
-        data.map((item, index) => (
-          <Carousel.Item key={index}>
-            <Image
-              width="100%"
-              height="auto"
-              className={style.image}
-              fluid
-              src={item}
-              alt={`Slide ${index}`}
-            />
-          </Carousel.Item>
-        ))}
-    </Carousel>
-  );
-};
+
+interface Props { data: string[] }
+
+const MyCarousel: React.FC<Props> = ({ data }) => (
+  <Carousel className="overflow-hidden bg-slate-900">
+    {data?.map((item, index) => (
+      <Carousel.Item key={index}>
+        <img className="h-[240px] w-full object-cover sm:h-[360px] lg:h-[500px]" src={item} alt={`Banner Tech Shop ${index + 1}`} />
+      </Carousel.Item>
+    ))}
+  </Carousel>
+);
 
 export default MyCarousel;

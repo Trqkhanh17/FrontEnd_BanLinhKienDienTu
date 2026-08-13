@@ -8,11 +8,11 @@ import { uploadFileAPI } from "../../../utils";
 import { Button, Form } from "react-bootstrap";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
-import "./dashboardPro.css";
 DataTable.use(DT);
 
 const ListAllProductDas = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [catId, SetCateId] = useState("");
@@ -39,6 +39,8 @@ const ListAllProductDas = () => {
       setData(res.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,26 +106,26 @@ const ListAllProductDas = () => {
 
   return (
     <LayoutDash>
-      <div>
-        <h2>Danh sách sản phẩm</h2>
+      <div className="panel min-w-0 overflow-hidden">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div><p className="mb-1 text-sm font-bold uppercase tracking-wider text-brand-600">Quản lý</p><h1 className="dashboard-title !mb-0">Danh sách sản phẩm</h1></div>
         {!showForm ? (<button
           className="btn btn-primary"
           onClick={() => setShowForm(true)}
         >
-          Thêm mới
+          + Thêm mới
         </button>)
           :
           (
             <button
-              className="btn btn-primary"
+              className="btn btn-danger"
               onClick={() => setShowForm(false)}
-              style={{ backgroundColor: "red" }}
             >
               Đóng
             </button>
-          )}
+          )}</div>
         {showForm && (
-          <Form onSubmit={handleSubmitCreate}>
+          <Form className="mb-6 grid gap-x-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2" onSubmit={handleSubmitCreate}>
             <Form.Group controlId="formCategory">
               <Form.Label>Loại sản phẩm:</Form.Label>
               <Form.Control
@@ -183,7 +185,7 @@ const ListAllProductDas = () => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formDescription">
+            <Form.Group className="sm:col-span-2" controlId="formDescription">
               <Form.Label>Mô tả:</Form.Label>
               <Form.Control
                 as="textarea"
@@ -193,14 +195,16 @@ const ListAllProductDas = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button className="mt-3 w-full sm:col-span-2 sm:w-auto" variant="primary" type="submit">
               Thêm mới
             </Button>
           </Form>
         )}
 
-        {!data || data.length === 0 ? (
-          "Loading..."
+        {loading ? (
+          <p className="py-8 text-center text-slate-500">Đang tải sản phẩm...</p>
+        ) : data.length === 0 ? (
+          <p className="py-8 text-center text-slate-500">Chưa có sản phẩm.</p>
         ) : (
           <DataTable className="table table-striped" options={{ lengthMenu: [5] }}>
             <thead>
@@ -219,19 +223,19 @@ const ListAllProductDas = () => {
             </thead>
             <tbody>
               {data.map((item: any) => (
-                <tr>
+                <tr key={item.pro_id}>
                   <td>{item.pro_name}</td>
                   <td>{item.pro_brand}</td>
                   <td>{item.pro_origin}</td>
                   <td>{item.pro_description}</td>
                   <td>{item.price}</td>
-                  <td><img style={{ height: "40px", width: "40px" }} src={item.pro_img} alt="Product image" /></td>
+                  <td><img className="h-10 w-10 rounded-lg object-cover" src={item.pro_img} alt={item.pro_name} /></td>
                   <td>{item.pro_create}</td>
                   <td>{item.pro_update}</td>
                   <td>{item.is_delete}</td>
                   <td>
-                    <button className="btn btn-primary" onClick={() => navigate(`/edit-product/${item.pro_id}`)}>Sửa Sản Phẩm</button>
-                    <button className="btn btn-danger" onClick={() => { handleSubmitDelete(item.pro_id.toString()) }}>Xóa Sản Phẩm</button>
+                    <div className="flex gap-2"><button className="primary-button !min-h-9 !px-3 !py-1 text-xs" onClick={() => navigate(`/edit-product/${item.pro_id}`)}>Sửa</button>
+                    <button className="danger-button !min-h-9 !px-3 !py-1 text-xs" onClick={() => { handleSubmitDelete(item.pro_id.toString()) }}>Xóa</button></div>
                   </td>
                 </tr>
               ))}

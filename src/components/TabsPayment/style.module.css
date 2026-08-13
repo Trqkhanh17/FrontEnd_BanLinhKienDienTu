@@ -1,10 +1,2 @@
-.tabTitle {
-    cursor: pointer;
-}
-
-.buttonPaymentContinue {
-    background-color: #cfab68;
-    padding: 10px 20px;
-    border-radius: 3px;
-    border: none;
-}
+.tabTitle { @apply cursor-pointer rounded-lg px-2 py-1 transition hover:bg-slate-100; }
+.buttonPaymentContinue { @apply rounded-lg border-0 bg-brand-700 px-5 py-2.5 font-semibold text-white transition hover:bg-brand-600; }

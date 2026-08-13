@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../hooks/apiClient";
-import { retry } from "@reduxjs/toolkit/query";
 
 export const createOrderAPI = async (data: any) => {
     const res: AxiosResponse = await apiClient.post("/order/create", data);
@@ -21,7 +20,7 @@ export const listOrderByIdAPI = async (cusId:string) => {
     const res: AxiosResponse = await apiClient.get(`/order/${cusId}`);
     return res;
 };
-export const rejectedOrderAPI = async (orderId:string)=>{
+export const rejectedOrderAPI = async (orderId: { order_id: string | number })=>{
     const res: AxiosResponse = await apiClient.put("/order/delete",orderId);
     return res;
 }
