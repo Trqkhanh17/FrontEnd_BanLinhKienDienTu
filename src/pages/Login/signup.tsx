@@ -2,9 +2,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Register, registerAPI } from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
+import { setCookie } from "../../utils";
 
 const fieldClass = "form-field";
-
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,8 @@ const SignUpForm = () => {
       const data: Register = { acc_email: email, password, cus_name: name, cus_address: address, cus_phone: phone, cus_birthday: birthday };
       const res = await registerAPI(data);
       if ([400, 401, 402, 403, 404].includes(res.data.statusCode)) return toast.warning(res.data.message);
+      const token = res.data.token || res.data.accessToken || res.data.access_token || res.data.data?.token;
+      if (token) setCookie("token", token, 7);
       toast.success(res.data.message || "Đăng ký thành công");
       return navigate("/");
     } catch (error) {

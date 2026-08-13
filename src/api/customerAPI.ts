@@ -16,6 +16,16 @@ export const listCustomerAPI = async () => {
   const res: AxiosResponse = await apiClient.get("/customer/list-all");
   return res;
 };
+export const getCustomerProfileByEmailAPI = async () => {
+  const res: AxiosResponse = await apiClient.get("/customer/profile-by-email");
+  return res;
+};
+export const findCustomerAPI = async (inforFind: string) => {
+  const res: AxiosResponse = await apiClient.get("/customer/findCustomer", {
+    params: { inforFind },
+  });
+  return res;
+};
 export const bannedCustomerAPI = async (data: any) => {
   const res: AxiosResponse = await apiClient.put("/account/ban-account", data);
   return res;

@@ -24,6 +24,10 @@ export const rejectedOrderAPI = async (orderId: { order_id: string | number })=>
     const res: AxiosResponse = await apiClient.put("/order/delete",orderId);
     return res;
 }
+export const restoreOrderAPI = async (data: { order_id: string | number })=>{
+    const res: AxiosResponse = await apiClient.put("/order/undelete",data);
+    return res;
+}
 export const getOrderByOrderIdAPI = async (orderId:any)=>{
     const res:AxiosResponse = await apiClient.get(`/getorderbyid/${orderId}`);
     return res; 

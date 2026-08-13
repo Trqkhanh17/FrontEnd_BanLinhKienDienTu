@@ -4,6 +4,9 @@ import {getProfileAPI} from "../../api/authAPI";
 // Define a type for the slice state
 interface Profile {
   staff_id?: number;
+  staff_name?: string;
+  staff_phone?: string;
+  staff_email?: string;
   cus_id: number;
   cus_name: string;
   cus_address: string;

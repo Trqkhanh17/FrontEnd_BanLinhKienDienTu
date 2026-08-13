@@ -7,15 +7,15 @@ import { listCategoryAPI } from "../../../../api/categoryAPI";
 import { toast } from "react-toastify";
 import LayoutDash from "../../Layout";
 
-interface CategoryOption {
-  cate_id: number;
+interface Category {
+  cate_id: string | number;
   cate_name: string;
 }
 
 function EditCustomize() {
   const { proId } = useParams();
   const navigate = useNavigate();
-  const [dataCate, setDataCate] = useState<CategoryOption[]>([]);
+  const [dataCate, setDataCate] = useState<Category[]>([]);
   const [proName, setProName] = useState("");
   const [cateId, setCateId] = useState("");
   const [price, setPrice] = useState("");

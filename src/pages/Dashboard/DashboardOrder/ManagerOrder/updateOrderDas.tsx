@@ -25,16 +25,16 @@ const UpdateStatusDas = () => {
     const getData = async () => {
         try {
             const res = await getOrderByOrderIdAPI(orderId);
-            console.log(res.data.data);
-            SetCusId(res.data.data[0].cus_id);
-            SetOrderId(res.data.data[0].order_id);
-            SetOrderName(res.data.data[0].order_name);
-            SetPhone(res.data.data[0].order_phone);
-            SetEmail(res.data.data[0].order_email);
-            SetStatus(res.data.data[0].order_status);
-            SetNote(res.data.data[0].order_note);
-            SetPayStatus(res.data.data[0].pay_status);
-            SetOrderAddress(res.data.data[0].order_address)
+            const order = Array.isArray(res.data.data) ? res.data.data[0] : res.data.data;
+            SetCusId(order.cus_id);
+            SetOrderId(order.order_id);
+            SetOrderName(order.order_name);
+            SetPhone(order.order_phone);
+            SetEmail(order.order_email);
+            SetStatus(order.order_status);
+            SetNote(order.order_note);
+            SetPayStatus(order.pay_status);
+            SetOrderAddress(order.order_address)
         } catch (error: any) {
             toast.error(error);
         }

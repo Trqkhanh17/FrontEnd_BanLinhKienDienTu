@@ -48,3 +48,10 @@ export const uploadFileAPI = async (file: any) => {
   const response = await apiClient.post("/uploadfile",formData)
   return response
 };
+
+export const uploadFilesAPI = async (files: File[]) => {
+  const formData = new FormData();
+  files.forEach((file) => formData.append("files", file));
+  const response = await apiClient.post("/uploadfiles", formData);
+  return response;
+};
